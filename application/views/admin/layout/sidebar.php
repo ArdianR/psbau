@@ -12,7 +12,17 @@
 					<div class="sidebar-user">
 						<div class="category-content">
 							<div class="media">
-								<a href="#" class="media-left"><img src="<?php echo base_url(); ?>assets2/images/placeholder.jpg" class="img-circle img-sm" alt=""></a>
+								<a href="#" class="media-left"><img src="
+								<?php 
+									if($fotoadmin == NULL){
+										echo base_url().'assets2/images/profpic/default-foto.png'; 
+									}
+									else
+									{
+										echo base_url().'assets2/images/profpic/'.$fotoadmin;
+									}
+								?>
+								" alt=""></a>
 								<div class="media-body">
 									<span class="media-heading text-semibold"><?php echo $namaadmin; ?></span>
 									<div class="text-size-mini text-muted">
@@ -39,14 +49,29 @@
 									<span class="label label-warning">Coming Soon</span>
 									</a>
 								</li>
-								<li <?php echo $referensi_active; ?>>
-									<a href="<?php echo base_url(); ?>admin/referensi"><i class="icon-list-unordered"></i> <span>Referensi</span>
+								<li>
+									<a href="#"><i class="icon-list-unordered"></i> <span>Referensi</span>
 									<span class="label label-warning">Coming Soon</span>
 									</a>
+									<ul>
+										<li <?php echo $referensi_active; ?>>
+											<a href="<?php echo base_url(); ?>admin/referensi">Referensi PSB</a>
+										</li>
+										<li<?php //echo $admin_active; ?>>
+											<a href="<?php echo base_url(); ?>admin/dataadmin">Referensi Umum</a>
+											<ul>
+												<li><a href="<?php echo base_url(); ?>admin/referensi_agama">Agama</a></li>
+												<li><a href="<?php echo base_url(); ?>admin/referensi_suku">Suku</a></li>
+												<li><a href="<?php echo base_url(); ?>admin/referensi_kondisisiswa">Kondisi Siswa</a></li>
+												<li><a href="<?php echo base_url(); ?>admin/referensi_statusortu">Status Ortu</a></li>
+												<li><a href="<?php echo base_url(); ?>admin/referensi_tingkatpendidikan">Tingkat Pendidikan</a></li>
+												<li><a href="<?php echo base_url(); ?>admin/referensi_penghasilan">Penghasilan</a></li>
+											</ul>
+										</li>
+									</ul>
 								</li>
 								<li <?php echo $admin_active; ?>>
 									<a href="<?php echo base_url(); ?>admin/dataadmin"><i class="icon-user"></i> <span>Admin</span>
-									<span class="label label-warning">Coming Soon</span>
 									</a>
 									<ul>
 										<li <?php echo $admin_active; ?>><a href="<?php echo base_url(); ?>admin/dataadmin">Semua Admin</a></li>

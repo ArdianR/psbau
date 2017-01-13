@@ -26,7 +26,7 @@ class Admin extends CI_Controller {
 	{
 		$this->load->library('session');
 		$email = $this->session->userdata('email');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 
@@ -70,7 +70,8 @@ class Admin extends CI_Controller {
 					'username' => $row->username,
 					'email' => $row->email,
 					'nama' => $row->nama,
-					'login' => TRUE
+					'foto' => $row->foto,
+					'loginadmin' => TRUE
 					);
 				$this->session->set_userdata($newdata);
 			}
@@ -92,7 +93,7 @@ class Admin extends CI_Controller {
 
 	public function logout()
 	{
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 			$this->session->unset_userdata('login');
 			$this->session->set_flashdata('logout_berhasil','Anda berhasil logout');
 			//header('location : ../home'); nggak bisa gini kalo di CodeIgniter
@@ -103,7 +104,7 @@ class Admin extends CI_Controller {
 	public function dashboard()
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -131,6 +132,7 @@ class Admin extends CI_Controller {
 			$data['title']='Dashboard | PSB MAU-MBI Amanatul Ummah Surabaya';
 			//session nama lengkap
 			$data['namaadmin'] = $this->session->userdata('nama');
+			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
 			
 			//tahunmasuk aktif
 			$data['tahunmasukaktif'] = $this->M_referensi->getTahunMasukAktif();
@@ -194,7 +196,7 @@ class Admin extends CI_Controller {
 	public function datasiswa()
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -218,6 +220,7 @@ class Admin extends CI_Controller {
 			//title head
 			$data['title'] = 'Data Siswa | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
+			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
 
 			//notifikasi
 			$data['tambah_calonsiswa_berhasil'] = $this->session->flashdata('tambah_calonsiswa_berhasil');
@@ -272,7 +275,7 @@ class Admin extends CI_Controller {
 	public function tambahcalonsiswa()
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -297,6 +300,7 @@ class Admin extends CI_Controller {
 			$data['title'] = 'Tambah Calon Siswa | PSB MAU-MBI Amanatul Ummah Surabaya';
 	
 			$data['namaadmin'] = $this->session->userdata('nama');
+			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
 
 			$this->load->model('M_referensi');
 
@@ -376,7 +380,7 @@ class Admin extends CI_Controller {
 	public function do_tambahcalonsiswa()
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -546,7 +550,7 @@ class Admin extends CI_Controller {
 	{
 		$this->load->library('session');
 		$this->load->library("PHPExcel");
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -582,7 +586,7 @@ class Admin extends CI_Controller {
 	public function updatedatasiswa($nopendaftaran)
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -607,6 +611,7 @@ class Admin extends CI_Controller {
 			$data['title'] = 'Update Calon Siswa | PSB MAU-MBI Amanatul Ummah Surabaya';
 	
 			$data['namaadmin'] = $this->session->userdata('nama');
+			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
 
 			$this->load->model('M_referensi');
 
@@ -768,7 +773,7 @@ class Admin extends CI_Controller {
 	public function do_updatedatasiswa()
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -948,7 +953,7 @@ class Admin extends CI_Controller {
 	public function detailsiswa($nopendaftaran)
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1118,7 +1123,7 @@ class Admin extends CI_Controller {
 	public function hapussiswa($nopendaftaran)
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1144,7 +1149,7 @@ class Admin extends CI_Controller {
 	public function pencariansiswa()
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1169,6 +1174,7 @@ class Admin extends CI_Controller {
 			//title head
 			$data['title']='Cari Siswa | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
+			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
 
 			$this->load->view('admin/v_pencariansiswa', $data);
 		}
@@ -1177,7 +1183,7 @@ class Admin extends CI_Controller {
 	public function referensi()
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1201,6 +1207,7 @@ class Admin extends CI_Controller {
 			//title head
 			$data['title']='Referensi | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
+			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
 		
 			$this->load->view('admin/v_referensi', $data);
 		}
@@ -1210,7 +1217,7 @@ class Admin extends CI_Controller {
 	public function referensi_lembaga()
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1234,6 +1241,7 @@ class Admin extends CI_Controller {
 			//title head
 			$data['title']='Referensi Lembaga | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
+			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
 			//notifikasi
 			$data['tambah_lembaga_berhasil'] = $this->session->flashdata('tambah_lembaga_berhasil');
 			$data['hapus_lembaga_berhasil'] = $this->session->flashdata('hapus_lembaga_berhasil');
@@ -1249,7 +1257,7 @@ class Admin extends CI_Controller {
 	public function do_tambahlembaga()
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1274,7 +1282,7 @@ class Admin extends CI_Controller {
 	public function do_hapuslembaga($idlembaga)
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1295,7 +1303,7 @@ class Admin extends CI_Controller {
 	public function do_updatelembaga($idlembaga)
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1323,7 +1331,7 @@ class Admin extends CI_Controller {
 	public function referensi_tahun()
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1347,6 +1355,7 @@ class Admin extends CI_Controller {
 			//title head
 			$data['title']='Referensi Tahun Masuk | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
+			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
 			//notifikasi
 			$data['tambah_tahun_berhasil'] = $this->session->flashdata('tambah_tahun_berhasil');
 			$data['tahun_masuk_sudah_ada'] = $this->session->flashdata('tahun_masuk_sudah_ada');
@@ -1377,7 +1386,7 @@ class Admin extends CI_Controller {
 	public function do_tambahtahun()
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1410,7 +1419,7 @@ class Admin extends CI_Controller {
 	public function do_updatetahun($idtahunmasuk)
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1436,7 +1445,7 @@ class Admin extends CI_Controller {
 	public function do_hapustahun($idtahunmasuk)
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1456,7 +1465,7 @@ class Admin extends CI_Controller {
 	public function do_aktiftahun($idtahunmasuk)
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1488,7 +1497,7 @@ class Admin extends CI_Controller {
 	public function referensi_prosespenerimaan()
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1512,6 +1521,7 @@ class Admin extends CI_Controller {
 			//title head
 			$data['title']='Referensi Proses Penerimaan | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
+			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
 			//notifikasi
 			$data['kode_awalan_sudah_ada'] = $this->session->flashdata('kode_awalan_sudah_ada');
 			$data['tambah_proses_berhasil'] = $this->session->flashdata('tambah_proses_berhasil');
@@ -1540,7 +1550,7 @@ class Admin extends CI_Controller {
 	public function do_tambahproses()
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1574,7 +1584,7 @@ class Admin extends CI_Controller {
 	public function do_updateproses($idprosespenerimaan)
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1600,7 +1610,7 @@ class Admin extends CI_Controller {
 	public function do_hapusproses($idprosespenerimaan)
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1622,7 +1632,7 @@ class Admin extends CI_Controller {
 	public function referensi_kelompok()
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1646,6 +1656,7 @@ class Admin extends CI_Controller {
 			//title head
 			$data['title']='Referensi Kelompok | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
+			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
 
 			$this->load->model('M_referensi');
 			$data['_lembaga'] = $this->M_referensi->getLembaga();
@@ -1680,7 +1691,7 @@ class Admin extends CI_Controller {
 	public function dataadmin()
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1704,7 +1715,17 @@ class Admin extends CI_Controller {
 			//title head
 			$data['title']='Data Admin | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
-		
+			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
+			//notifikasi
+			$data['username_sudah_ada'] = $this->session->flashdata('username_sudah_ada');
+			$data['tambah_admin_berhasil'] = $this->session->flashdata('tambah_admin_berhasil');
+			$data['update_admin_berhasil'] = $this->session->set_flashdata('update_admin_berhasil');
+			$data['hapus_admin_berhasil'] = $this->session->flashdata('hapus_admin_berhasil');
+			$data['ubah_password_berhasil'] = $this->session->flashdata('ubah_password_berhasil');
+
+			$this->load->model('M_admin');
+			$data['query'] = $this->M_admin->getAllAdmin();
+
 			$this->load->view('admin/v_dataadmin', $data);
 		}
 	}
@@ -1712,7 +1733,7 @@ class Admin extends CI_Controller {
 	public function tambahadmin()
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1736,16 +1757,150 @@ class Admin extends CI_Controller {
 			//title head
 			$data['title']='Tambah Admin | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
+			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
 		
 			$this->load->view('admin/v_tambahadmin', $data);
 		}
 	}
 	
+	public function do_tambahadmin()
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$data="";
+			
+			$this->load->model('M_admin');
+
+			$this->M_admin->setUsername($this->input->post('inputUsername'));
+			$query = $this->M_admin->getUsername();
+			if ($query->num_rows()>0)
+			{
+				$this->session->set_flashdata('username_sudah_ada', 'Maaf ! Username sudah ada, Silahkan masukkan username lain');
+				redirect('admin/dataadmin', 'location');
+			}
+
+			$this->M_admin->setPassword($this->input->post('inputPassword'));
+			$this->M_admin->setEmail($this->input->post('inputEmail'));	
+			$this->M_admin->setNama($this->input->post('inputNama'));
+			$this->M_admin->setPanggilan($this->input->post('inputPanggilan'));		
+
+			$query = $this->M_admin->addAdmin();
+		
+			$this->session->set_flashdata('tambah_admin_berhasil', 'Anda berhasil menambahkan user admin');
+			redirect('admin/dataadmin', 'location');
+		}
+	}
+
+	public function updateadmin($username)
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$data="";
+			//menu active
+			$data=array(	
+				'dashboard_active' 			=> 'class=""',
+				'datasiswa_active' 			=> 'class=""',
+				'pencariansiswa_active' 	=> 'class=""',
+				'referensi_active' 			=> 'class=""',
+				'admin_active' 				=> 'class="active"',
+				'tambahadmin_active' 		=> 'class=""',
+				'profil_active' 			=> 'class=""',
+				'resetpassword_active' 		=> 'class=""'
+				);
+
+			//title head
+			$data['title']='Update Admin | PSB MAU-MBI Amanatul Ummah Surabaya';
+			$data['namaadmin'] = $this->session->userdata('nama');
+			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
+
+			$this->load->model('M_admin');
+			$this->M_admin->setUsername($username);
+			$query = $this->M_admin->getAdminByUsername();
+
+			if ($query->num_rows() > 0)
+			{
+				foreach($query->result() as $row)
+				{
+					$data['username'] = $row->username;
+					$data['password'] = $row->password;
+					$data['email'] = $row->email;
+					$data['nama'] = $row->nama;
+					$data['panggilan'] = $row->panggilan;
+				}
+			}
+
+			$this->load->view('admin/v_updateadmin', $data);
+		}
+	}
+
+	public function do_updateadmin()
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$data="";
+
+			$this->load->model('M_admin');
+			$this->M_admin->setUsername($this->input->post('inputUsername'));
+			$this->M_admin->setEmail($this->input->post('inputEmail'));
+			$this->M_admin->setNama($this->input->post('inputNama'));
+			$this->M_admin->setPanggilan($this->input->post('inputPanggilan'));
+
+			$query = $this->M_admin->updateAdmin();
+
+			$this->session->set_flashdata('update_admin_berhasil', 'Anda berhasil mengubah data admin');
+			redirect('admin/dataadmin','location');
+		}
+	}
+
+	public function do_hapusadmin($username)
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$data="";
+
+			$this->load->model('M_admin');
+			$this->M_admin->setUsername($username);
+
+			$query = $this->M_admin->deleteAdmin();
+
+			$this->session->set_flashdata('hapus_admin_berhasil', 'Anda berhasil menghapus admin');
+			redirect('admin/dataadmin','location');
+		}
+	}
 
 	public function profil()
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
+		$username = $this->session->userdata('username');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1769,15 +1924,136 @@ class Admin extends CI_Controller {
 			//title head
 			$data['title']='Profil Admin | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
-		
+			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
+			//notifikasi
+			$data['update_profil_berhasil'] = $this->session->flashdata('update_profil_berhasil');
+			$data['upload_foto_berhasil'] = $this->session->flashdata('upload_foto_berhasil');
+			$data['upload_foto_gagal'] = $this->session->flashdata("upload_foto_gagal");
+
+			$this->load->model('M_admin');
+			$this->M_admin->setUsername($username);
+			
+			$query = $this->M_admin->getAdminByUsername();
+			if($query->num_rows() > 0)
+			{
+				foreach($query->result() as $row)
+				{
+					$data['username'] = $row->username;
+					$data['nama'] = $row->nama;
+					$data['panggilan'] = $row->panggilan;
+					$data['email'] = $row->email;
+					$data['password'] = $row->password;
+					$data['foto'] = $row->foto;
+ 				}	
+			}
 			$this->load->view('admin/v_profiladmin', $data);
 		}
 	}
 
+	public function do_updateprofil()
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		$username = $this->session->userdata('username');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_admin');
+			$this->M_admin->setUsername($username);
+			$this->M_admin->setEmail($this->input->post('inputEmail'));
+			$this->M_admin->setNama($this->input->post('inputNama'));
+			$this->M_admin->setPanggilan($this->input->post('inputPanggilan'));
+
+			$query = $this->M_admin->updateAdmin();
+
+			$this->session->set_flashdata('update_profil_berhasil', 'Anda berhasil mengubah profil admin');
+			redirect('admin/profil','location');
+		}
+	}
+
+	public function do_gantipassword($username)
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_admin');
+			$this->M_admin->setUsername($username);
+			$this->M_admin->setPassword($this->input->post('inputPassword'));
+
+			$query = $this->M_admin->changePassword();
+
+			$this->session->set_flashdata('ubah_password_berhasil', 'Anda berhasil mengubah password admin');
+			redirect('admin/dataadmin','location');
+		}
+	}
+
+	public function do_unggahfotoprofil()
+	{
+			
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		$username = $this->session->userdata('username');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_admin');
+			$this->M_admin->setUsername($username);
+
+			//UPLOAD FOTO
+			$this->load->library('upload');
+	        $namafile = $username.'-'.time(); //nama file saya beri nama langsung dan diikuti fungsi time
+	        $path = './assets2/images/profpic/';
+	        $config['upload_path'] = $path; //path folder
+	        $config['allowed_types'] = 'jpg|png|jpeg|bmp|gif'; //type yang dapat diakses bisa anda sesuaikan
+	        $config['max_size'] = '1048'; //maksimum besar file 1M
+	        $config['max_width']  = '600'; //lebar maksimum 400 px
+	        $config['max_height']  = '900'; //tinggi maksimu 600 px
+	        $config['file_name'] = $namafile; //nama yang terupload nantinya
+	 
+	        $this->upload->initialize($config);
+	         
+	        if(!empty($_FILES['fileFoto']['name']))
+	        {
+	            if ($this->upload->do_upload('fileFoto'))
+	            {
+		            $gambar = $this->upload->data();
+		            $linkfoto =  $namafile.'.'.$gambar['image_type'];
+		 			$this->M_admin->setLinkFoto($linkfoto);
+
+		 			$query = $this->M_admin->updateFotoProfil();
+		 			$this->session->set_flashdata('upload_foto_berhasil', 'Anda berhasil mengunggah foto profil admin');
+
+		 			redirect('admin/profil','location');
+	            }else{
+	                //pesan yang muncul jika terdapat error dimasukkan pada session flashdata
+	                $this->session->set_flashdata("upload_foto_gagal", "Format atau Ukuran Foto Tidak Sesuai");
+	                redirect('admin/profil','location');
+	            }
+	        }
+	        //END UPLOAD FOTO
+		}
+
+			
+	} 
+
 	public function resetpassword()
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');
@@ -1801,6 +2077,7 @@ class Admin extends CI_Controller {
 			//title head
 			$data['title']='Reset Password Siswa | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
+			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
 			//notifikasi
 			$data['reset_password_berhasil'] = $this->session->flashdata('reset_password_berhasil');
 			$data['email_belum_terdaftar'] = $this->session->flashdata('email_belum_terdaftar');
@@ -1812,7 +2089,7 @@ class Admin extends CI_Controller {
 	public function do_resetpassword()
 	{
 		$this->load->library('session');
-		$login = $this->session->userdata('login');
+		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
 			$this->load->helper('url');

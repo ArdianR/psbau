@@ -11,6 +11,8 @@
       <div class="jumbotron">
        <h2><strong>Formulir Pendaftaran</strong></h2> <br>
        <p style="font-size: 16px">Seluruh item isian pada formulir yang bertanda (<span style="color:red">*</span>) harus diisi dengan benar</p>
+       <p style="font-size: 16px">Isilah seluruh item dengan format <b>Huruf Besar</b> di awal kata</p><br>
+       
        <form class="form-horizontal" action="<?php echo base_url(); ?>pendaftaran/do_pendaftaran" method="POST" enctype="multipart/form-data">
         <fieldset>
           <legend>Data Penerimaan Calon Siswa</legend>
@@ -50,15 +52,15 @@
           <br>
           <legend>Data Pribadi Calon Siswa</legend>
           <div class="form-group">
-            <label for="inputNISN" class="col-lg-2 control-label">NISN</label>
+            <label for="inputNISN" class="col-lg-2 control-label">NISN <span style="color:red;">*</span></label>
             <div class="col-lg-5">
-              <input type="text" class="form-control" name="inputNISN" id="inputNISN"  value="<?php echo ($nisn ? $nisn : "");?>">
+              <input type="text" class="form-control" name="inputNISN" id="inputNISN"  value="<?php echo ($nisn ? $nisn : "");?>" required>
             </div>
           </div>
           <div class="form-group">
-            <label for="inputNIK" class="col-lg-2 control-label">NIK</label>
+            <label for="inputNIK" class="col-lg-2 control-label">NIK <span style="color:red;">*</span></label>
             <div class="col-lg-5">
-              <input type="text" class="form-control" name="inputNIK" id="inputNIK"  value="<?php echo ($nik ? $nik : "");?>">
+              <input type="text" class="form-control" name="inputNIK" id="inputNIK"  value="<?php echo ($nik ? $nik : "");?>" required>
             </div>
           </div>
           <div class="form-group">
@@ -108,6 +110,7 @@
               <input type="date" class="form-control" name="inputTanggalLahir" id="inputTanggalLahir" value="<?php echo ($tgllahir ? $tgllahir : "");?>" required>
             </div>
           </div>
+
           <div class="form-group">
             <label for="inputAgama" class="col-lg-2 control-label">Agama <span style="color:red;">*</span></label>
             <div class="col-lg-3">
@@ -165,13 +168,13 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="inputAnakKe" class="col-lg-2 control-label">Anak Ke</label>
+            <label for="inputAnakKe" class="col-lg-2 control-label">Anak Ke <span style="color:red;">*</span></label>
             <div class="col-lg-2">
-              <input type="text" class="form-control" name="inputAnakKe" id="inputAnakKe" value="<?php echo ($anakke ? $anakke : "");?>">
+              <input type="text" class="form-control" name="inputAnakKe" id="inputAnakKe" value="<?php echo ($anakke ? $anakke : "");?>" required>
             </div>
-            <label for="inputJumlahSaudara" class="col-lg-1 control-label">Dari</label>
+            <label for="inputJumlahSaudara" class="col-lg-1 control-label">Dari <span style="color:red;">*</span></label>
             <div class="col-lg-2">
-              <input type="text" class="form-control" name="inputJumlahSaudara" id="inputJumlahSaudara" value="<?php echo ($jsaudara ? $jsaudara : "");?>">
+              <input type="text" class="form-control" name="inputJumlahSaudara" id="inputJumlahSaudara" value="<?php echo ($jsaudara ? $jsaudara : "");?>" required>
             </div>
             <label for="inputAgama" class="col-lg-1 control-label">Bersaudara</label>
           </div>
@@ -256,7 +259,7 @@
           <div class="form-group">
             <label for="inputTanggalIjasah" class="col-lg-2 control-label">Tanggal Ijasah</label>
             <div class="col-lg-3">
-              <input type="date" class="form-control" name="inputTanggalIjasah" id="inputTanggalIjasah" value="<?php echo ($tglijasah ? $tglijasah : "");?>">
+              <input type="date" date-format="dd-mm-yyyy" class="form-control" name="inputTanggalIjasah" id="inputTanggalIjasah" value="<?php echo ($tglijasah ? $tglijasah : "");?>">
             </div>
           </div>
           <div class="form-group">
@@ -356,14 +359,14 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="inputNamaOrtu" class="col-lg-2 control-label">Nama</label>
+          <label for="inputNamaOrtu" class="col-lg-2 control-label">Nama <span style="color:red;">*</span></label>
           <div class="col-lg-4">
-            <input type="text" class="form-control" name="inputNamaAyah" id="inputNamaAyah" value="<?php echo ($namaayah ? $namaayah : "");?>" >
+            <input type="text" class="form-control" name="inputNamaAyah" id="inputNamaAyah" value="<?php echo ($namaayah ? $namaayah : "");?>" required>
             <input type="checkbox" name="inputAlmAyah" id="inputAlmAyah" value="1" <?php echo ($almayah=='1' ? "checked" : "");?> >
             <font color="#990000" size="1">(Almarhum)</font>
           </div>
           <div class="col-lg-4">
-            <input type="text" class="form-control" name="inputNamaIbu" id="inputNamaIbu" value="<?php echo ($namaibu ? $namaibu : "");?>">
+            <input type="text" class="form-control" name="inputNamaIbu" id="inputNamaIbu" value="<?php echo ($namaibu ? $namaibu : "");?>" required>
             <input type="checkbox" name="inputAlmIbu" id="inputAlmIbu" value="1" <?php echo ($almibu=='1' ? "checked" : "");?> >
             <font color="#990000" size="1">(Almarhumah)</font>
           </div>
@@ -392,7 +395,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="inputTempatLahir" class="col-lg-2 control-label">Tempat Lahir</label>
+          <label for="inputTempatLahir" class="col-lg-2 control-label">Tempat Lahir <span style="color:red;">*</span></label>
           <div class="col-lg-4">
             <input type="text" class="form-control" name="inputTempatLahirAyah" id="inputTempatLahirAyah" value="<?php echo ($tmplahirayah ? $tmplahirayah : "");?>">
           </div>
@@ -401,7 +404,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="inputTanggalLahir" class="col-lg-2 control-label">Tanggal Lahir</label>
+          <label for="inputTanggalLahir" class="col-lg-2 control-label">Tanggal Lahir <span style="color:red;">*</span></label>
           <div class="col-lg-4">
             <input type="date" class="form-control" name="inputTanggalLahirAyah" id="inputTanggalLahirAyah" value="<?php echo ($tgllahirayah ? $tgllahirayah : "");?>">
           </div>
@@ -800,6 +803,11 @@
 
 </div>
 
+<script type="text/javascript">
+  $('#sandbox-container .input-group.date').datepicker({
+    format: "dd/mm/yyyy"
+});
+</script>>
 
 <script type="text/javascript"> 
 $(document).ready(function(){ 
@@ -817,6 +825,8 @@ $(document).ready(function(){
   }).change(); 
 }); 
 </script>
+
+
 
 <?php
 require_once('layout/script.php');

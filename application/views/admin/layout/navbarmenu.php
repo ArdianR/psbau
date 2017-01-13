@@ -20,7 +20,17 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown dropdown-user">
 					<a class="dropdown-toggle" data-toggle="dropdown">
-						<img src="<?php echo base_url(); ?>assets2/images/placeholder.jpg" alt="">
+						<img src="
+						<?php 
+							if($fotoadmin == NULL){
+								echo base_url().'assets2/images/profpic/default-foto.png'; 
+							}
+							else
+							{
+								echo base_url().'assets2/images/profpic/'.$fotoadmin;
+							}
+						?>
+						" alt="">
 						<span><?php echo $namaadmin; ?></span>
 						<i class="caret"></i>
 					</a>

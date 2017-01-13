@@ -24,6 +24,8 @@
       echo '<div class="alert alert-dismissible alert-danger">'.'<center>'.'<strong>'.$verifikasi_gagal.'</strong>'.'</center>'.'</div>';
     if ($captcha_tidak_sama)
       echo '<div class="alert alert-dismissible alert-danger">'.'<center>'.'<strong>'.$captcha_tidak_sama.'</strong>'.'</center>'.'</div>';
+    if ($aktifasi_berhasil) 
+      echo '<div class="alert alert-dismissible alert-success">'.'<center>'.'<strong>'.$aktifasi_berhasil.'</strong>'.'</center>'.'</div>';
     ?>
 
     <div class="col-md-8">
@@ -37,20 +39,97 @@
  
 </ul>
 <div id="myTabContent" class="tab-content">
-  <div class="tab-pane fade" id="prosedur">
-    <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+  <div class="tab-pane fade active in" id="prosedur">
+    <br>
+    <h4><strong>Persyaratan Umum</strong></h4>
+    <ol>
+        <li>Mengisi formulir yang telah disediakan</li>
+        <li>Fotocopy rapor SMP/MTs semester 5 atau surat keterangan telah duduk di kelas 3 SMP/MTs</li>
+        <li>Pas Foto (hitam putih) ukuran 3x4 sebanyak 5 lembar</li>
+        <li>2 lembar fotocopy STTB MTs/SMP dan fotocopy danem bagi yang sudah memiliki</li>
+        <li>Fotocopy Kartu Keluarga (KK), Akta Kelahiran, Ijasah SD/MI, SMP/MTs*</li>
+    </ol>
+    <p>* Persyaratan tersebut dibawa ketika registrasi langsung di tempat atau dibawa ketika Daftar Ulang bagi calon siswa yang mendaftar secara Online</p>
+    <br>
+    <h4><strong>Persyaratan Mengikuti Test</strong></h4>
+    <p>Sebelum mengikuti test, calon siswa yang sudah mendaftar registrasi baik di tempat maupun secara online, Wajib membawa dan menunjukkan <b>bukti pendaftaran</b> serta <b>bukti pembayaran</b> kepada panitia PSB MAU-MBI Amanatul Ummah Sby. Test akan dilaksanakan di Pondok Pesantren Amanatul Ummah Surabaya. Untuk waktunya silahkan bisa dilihat di menu <b>Agenda Kegiatan</b></p>
+    <br>
+    <h4><strong>Materi Test</strong></h4>
+    <p>Materi test yang akan diujikan adalah sebagai berikut :</p> <br>
+    <b>MA Unggulan Amanatul Ummah</b>
+    <ul>
+        <li>Matematika</li>
+        <li>Pengetahuan Agama Islam</li>
+        <li>TPA (Test Potensi Akademik)</li>
+    </ul>
+    <br>
+    <b>MBI Amanatul Ummah</b>
+    <ul>
+        <li>Bahasa Inggris</li>
+        <li>Kemampuan IPA (Fisika, Kimia, Matematika)</li>
+        <li>TPA (Test Potensi Akademik)</li>
+    </ul>
+
   </div>
-  <div class="tab-pane fade active in" id="agenda">
-    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+  <div class="tab-pane fade" id="agenda">
+    <br>
+    <table class="table table-striped table-hover ">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Kegiatan</th>
+        <th>Tanggal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Pendaftaran Gelombang 1</td>
+        <td>13 Desember 2016 s.d 06 Mei 2017</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Pendaftaran Gelombang 2</td>
+        <td>08 Mei 2017 s.d 10 Juni 2017</td>
+      </tr>
+    </tbody>
+    </table>
   </div>
   <div class="tab-pane fade" id="biaya">
-    <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
+    <br>
+    <h4><strong>Biaya Pendaftaran untuk MA Unggulan Amanatul Ummah Sby (MAU)</strong></h4>
+    <ol>
+      <li>Biaya pendaftaran sebesar <b>Rp.275.000,-</b></li>
+      <li>Biaya seragam sekolah dan atribut <b>Rp.610.000,-</b></li>
+      <li>Sumbangan Pembangunan <b>Rp. 3.500.000,-</b></li>
+    </ol>
+    <br>
+    <h4><strong>Biaya Pendaftaran untuk MBI Amanatul Ummah Sby (MBI)</strong></h4>
+    <ol>
+      <li>Biaya pendaftaran sebesar <b>Rp.300.000,-</b></li>
+      <li>Biaya seragam sekolah <b>Rp. 630.000,-</b></li>
+      <li>Biaya sarana sekolah <b>Rp. 4.500.000,-</b></li>
+    </ol>
+    <br>
+    <p><b>* Catatan </b>: Untuk Biaya No.2 dan No.3 dibayarkan jika calon santri sudah dinyatakan diterima di MAU Amanatul Ummah atau MBI Amanatul Ummah Surabaya.</p>
+    <br>
+    <p>Jika melakukan pendaftaran online maka pembayaran dapat dilakukan melalui <br>
+    <b>Bank Syariah Mandiri, a.n. blablabla No. Rek : 7073680543</b>.
+    <br>
+    Kemudian melakukan konfirmasi pembayaran ke  nomor <b>08..... <br>
+    dengan format sms :
+    <br>
+    registrasi_Nomor Rekening Pengirim_Atas Nama_Nominal Pembayaran_Pilihan Lembaga(MAU/MBI)_Nama Siswa Terdaftar</b> <br>
+    Contoh : registrasi_0326746423_Wicaksono Wahyu_300000_MAU_Fatahillah Muhammad
+    <br><br>
+    atau jika mendaftar langsung dapat melakukan pembayaran di sekertariat PSB di Pondok Pesantren Amanatul Ummah Surabaya.</p>
   </div>
   <div class="tab-pane fade" id="alur">
-    <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater.</p>
+
   </div>
   <div class="tab-pane fade" id="pengumuman">
-    <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater.</p>
+    <br>
+    <h4>Silahkan mengunduh Hasil Pengumuman dibawah ini :</h4>
   </div>
 </div>
 
@@ -70,7 +149,7 @@
 
 <div id="myTabContent" class="tab-content">
   <div class="tab-pane fade active in" id="login">
-    <p style="font-size: 14px"><br>Masukkan Username dan Password untuk login. Silahkan register terlebih dahulu jika belum punya.</p>
+    <p style="font-size: 14px"><br>Masukkan Email dan Password untuk login. Silahkan register terlebih dahulu jika belum punya.</p>
     
 <form class="form-horizontal" method="POST" action="<?php echo base_url(); ?>home/login">
   <fieldset>
@@ -85,10 +164,41 @@
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Login</button> <br><br>
-         <a>Lupa Password ?</a>
-      </div>
-  </fieldset>
+    </div>
+    </fieldset>
 </form>
+    
+  <!-- Button trigger modal -->
+  <a data-toggle="modal" data-target="#lupa_password">
+    Lupa Password ?
+  </a>
+  <!--Modal Lupa Password-->
+  <div class="modal fade" id="lupa_password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Lupa Password</h4>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 16px">Jika anda lupa password, silahkan mengirimkan sms ke nomor <b>blablabla</b> dengan
+        <br><br>
+        <b>Format SMS : lupapassword_email registrasi.</b>
+        <br><br>
+        Admin sekolah akan mereset password anda dan akan mengirimkan melalui email. Silahkan cek email untuk mengetahui password yang baru.
+        <br><br>
+
+        Terima Kasih
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
 
   </div>
   <div class="tab-pane fade" id="register">
@@ -149,7 +259,12 @@
     <tr>
       <td>1</td>
       <td>Pendaftaran Gelombang 1</td>
-      <td>01 Desember 2017 - 30 Maret 2017</td>
+      <td>13 Desember 2016 - 06 Mei 2017</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Pendaftaran Gelombang 2</td>
+      <td>8 Mei 2017 - 10 Juni 2017</td>
     </tr>
     </tbody>
     </table>
@@ -157,7 +272,12 @@
 </div>
 
   <div class="well">
-    <p style="font-size: 14px"><strong>Pendaftaran dikenakan biaya sebesar Rp. 300.000,-</strong></p>
+    <p style="font-size: 14px">
+      <ol>
+      <li>Pendaftaran Registrasi Online dikenakan biaya sebesar <strong>Rp. 275.000,-</strong> untuk pilihan Lembaga <b>MA Unggulan Amanatul Ummah Sby</b> dan</li>
+      <li>Biaya registrasi sebesar <strong>Rp. 300.000,-</strong> untuk pilihan Lembaga <b>MBI Amanatul Ummah Sby</b></li>
+      </ol>
+    </p>
     <p style="font-size: 14px"><a href="http://www.psb.mau-mbi-ausby.sch.id/manual">Panduan Pendaftaran</a> dapat dilihat di alamat <a href="http://www.psb.mau-mbi-ausby.sch.id/manual">http://psb.mau-mbi-ausby.sch.id/manual.</a></p>
   </div>
 
@@ -167,9 +287,21 @@
   </div>
   <div class="panel-body">
     Call Center PSB <br>
-    <strong>0811-1111-1111</strong> <br>
-    Jalan Siwalankerto Utara 56, Wonocolo, Surabaya <br>
-    Melayani setiap hari pukul 08.00 - 20.00 WIB
+    <b>Kantor</b> : (031)-8438754<br><br>
+    <b>Lembaga MA Unggulan Amanatul Ummah</b> <br>
+    <strong>0857-0649-3411</strong> (Ust. Masyhadi) <br>
+    <strong>0852-4040-3897</strong> (Ust. Eri) <br>
+    <strong>0851-0292-1371</strong> (Ibu Fadilah)<br>
+    <br>
+    <b>Lembaga MBI Amanatul Ummah</b> <br>
+    <strong>0813-3277-5439</strong> (Bpk. Alwi)<br>
+    <strong>0881-9551-253</strong> (Bpk. Rif'an)<br>
+    <strong>0856-4598-0357</strong> (Bpk. Widi)<br>
+    <strong>0851-0292-1371</strong> (Ibu Fadilah)<br>
+    <strong>0858-5224-9878</strong> (Ibu Putri)<br>
+    <br>
+    Jalan Siwalankerto Utara 56-63, Wonocolo, Surabaya <br>
+    Melayani setiap hari pukul 08.00 - 15.00 WIB
   </div>
 </div>
 

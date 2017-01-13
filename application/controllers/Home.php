@@ -50,6 +50,7 @@ class Home extends CI_Controller {
 		$data['email_password_salah'] = $this->session->flashdata('email_password_salah');
 		$data['verifikasi_gagal'] = $this->session->flashdata('verifikasi_gagal'); //verifikasi email gagal
 		$data['captcha_tidak_sama'] = $this->session->flashdata('captcha_tidak_sama');
+		$data['aktifasi_berhasil'] = $this->session->flashdata('aktifasi_berhasil');
 
 		// load codeigniter captcha helper
          $this->load->helper('captcha');
@@ -58,6 +59,8 @@ class Home extends CI_Controller {
              'img_url'	 => base_url().'captcha/',
              'img_width'	 => '270',
              'img_height' => 40,
+             'word_length'   => 5,
+             'font_size'     => 18,
              'border' => 0, 
              'expiration' => 7200
          );
@@ -164,7 +167,7 @@ class Home extends CI_Controller {
 
 	    );
 
-	    echo $this->email->print_debugger();
+	    //echo $this->email->print_debugger();
 
 	    if($this->email->send())
 	    {
@@ -183,8 +186,8 @@ class Home extends CI_Controller {
 	 $this->load->helper('url');
 	 $this->load->model('M_user');
 	 $this->M_user->changeActiveState($key);
-	 echo "Selamat kamu telah memverifikasi akun kamu";
-	 echo "<br><br><a href='".site_url("home")."'>Kembali ke Menu Login</a>";
+	 $this->session->set_flashdata('aktifasi_berhasil','Selamat kamu telah memverifikasi akun kamu, Silahkan Login !');
+	 redirect('home', 'location');
 	}
 
 	public function login()
