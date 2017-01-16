@@ -40,46 +40,37 @@
 							<ul class="navigation navigation-main navigation-accordion">
 								<!-- Main -->
 								<li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
-								<li <?php echo $dashboard_active; ?>><a href="<?php echo base_url(); ?>admin/dashboard"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
-								<li <?php echo $datasiswa_active; ?>>
+								<li class="<?php if($this->uri->segment(2)=="dashboard"){echo "active";}?>" ><a href="<?php echo base_url(); ?>admin/dashboard"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+								<li class="<?php if($this->uri->segment(2)=="datasiswa"){echo "active";}?>" >
 									<a href="<?php echo base_url(); ?>admin/datasiswa"><i class="icon-stack2"></i> <span>Data Siswa</span></a>
 								</li>
-								<li <?php echo $pencariansiswa_active; ?>>
+								<li class="<?php if($this->uri->segment(2)=="pencariansiswa"){echo "active";}?>">
 									<a href="<?php echo base_url(); ?>admin/pencariansiswa"><i class="icon-search4"></i> <span>Pencarian Siswa</span>
 									<span class="label label-warning">Coming Soon</span>
 									</a>
 								</li>
 								<li>
 									<a href="#"><i class="icon-list-unordered"></i> <span>Referensi</span>
-									<span class="label label-warning">Coming Soon</span>
 									</a>
 									<ul>
-										<li <?php echo $referensi_active; ?>>
-											<a href="<?php echo base_url(); ?>admin/referensi">Referensi PSB</a>
+										<li class="<?php if($this->uri->segment(2)=="referensipsb" || $this->uri->segment(2)=="referensi_lembaga" || $this->uri->segment(2)=="referensi_tahun" || $this->uri->segment(2)=="referensi_prosespenerimaan" || $this->uri->segment(2)=="referensi_kelompok"){echo "active";}?>">
+											<a href="<?php echo base_url(); ?>admin/referensipsb">Referensi PSB</a>
 										</li>
-										<li<?php //echo $admin_active; ?>>
-											<a href="<?php echo base_url(); ?>admin/dataadmin">Referensi Umum</a>
-											<ul>
-												<li><a href="<?php echo base_url(); ?>admin/referensi_agama">Agama</a></li>
-												<li><a href="<?php echo base_url(); ?>admin/referensi_suku">Suku</a></li>
-												<li><a href="<?php echo base_url(); ?>admin/referensi_kondisisiswa">Kondisi Siswa</a></li>
-												<li><a href="<?php echo base_url(); ?>admin/referensi_statusortu">Status Ortu</a></li>
-												<li><a href="<?php echo base_url(); ?>admin/referensi_tingkatpendidikan">Tingkat Pendidikan</a></li>
-												<li><a href="<?php echo base_url(); ?>admin/referensi_penghasilan">Penghasilan</a></li>
-											</ul>
+										<li class="<?php if($this->uri->segment(2)=="referensiumum"){echo "active";}?>">
+											<a href="<?php echo base_url(); ?>admin/referensiumum">Referensi Umum</a>
 										</li>
 									</ul>
 								</li>
-								<li <?php echo $admin_active; ?>>
+								<li class="<?php if($this->uri->segment(2)=="dataadmin"){echo "active";}?>">
 									<a href="<?php echo base_url(); ?>admin/dataadmin"><i class="icon-user"></i> <span>Admin</span>
 									</a>
 									<ul>
-										<li <?php echo $admin_active; ?>><a href="<?php echo base_url(); ?>admin/dataadmin">Semua Admin</a></li>
-										<li <?php echo $tambahadmin_active; ?>><a href="<?php echo base_url(); ?>admin/tambahadmin">Tambah Admin</a></li>
-										<li <?php echo $profil_active; ?>><a href="<?php echo base_url(); ?>admin/profil">Profil</a></li>
+										<li class="<?php if($this->uri->segment(2)=="dataadmin"){echo "active";}?>"><a href="<?php echo base_url(); ?>admin/dataadmin">Semua Admin</a></li>
+										<li class="<?php if($this->uri->segment(2)=="tambahadmin"){echo "active";}?>"><a href="<?php echo base_url(); ?>admin/tambahadmin">Tambah Admin</a></li>
+										<li class="<?php if($this->uri->segment(2)=="profil"){echo "active";}?>"><a href="<?php echo base_url(); ?>admin/profil">Profil</a></li>
 									</ul>
 								</li>
-								<li <?php echo $resetpassword_active; ?>>
+								<li class="<?php if($this->uri->segment(2)=="resetpassword"){echo "active";}?>">
 									<a href="<?php echo base_url(); ?>admin/resetpassword"><i class="icon-key"></i> <span>Reset Password Siswa</span>
 									</a>
 								</li>

@@ -26,7 +26,7 @@
 	<script type="text/javascript" src="<?php echo base_url(); ?>assets2/js/core/app.js"></script>
 	<!-- /theme JS files -->
 	<!-- Favicon-->
-  	<link rel="shortcut icon" href="<?php echo base_url(); ?>assets2/images/favicon-maumbi.png" >
+	<link rel="shortcut icon" href="<?php echo base_url(); ?>assets2/images/favicon-maumbi.png" >
 
 </head>
 
@@ -44,37 +44,37 @@
 				<!-- Content area -->
 				<div class="content">
 
-			<div class="row">
-      					<div class="col-md-3"></div>
-      					<div class="col-md-6">
-      					<!-- Solid alert -->
-					    <?php
-					    if ($logout_berhasil)
-					    {
-					    	echo '<div class="alert bg-success alert-styled-left">'.
-							'<button type="button" class="close" data-dismiss="alert">'.
-							'<span>'.'&times;'.'</span>'.
-							'<span class="sr-only">'.'Close'.'</span>'.'</button>'.
-							'<span class="text-semibold">'.$logout_berhasil.'</span>'.
-					    '</div>';
-					    }
-					    if ($username_email_password_salah)
-					    {
-					    echo '<div class="alert bg-danger-400 alert-styled-left">'.
-							'<button type="button" class="close" data-dismiss="alert">'.
-							'<span>'.'&times;'.'</span>'.
-							'<span class="sr-only">'.'Close'.'</span>'.'</button>'.
-							'<span class="text-semibold">'.$username_email_password_salah.'</span>'.
-					    '</div>';
-					    }
+					<div class="row">
+						<div class="col-md-3"></div>
+						<div class="col-md-6">
+							<!-- Solid alert -->
+							<?php
+							if ($logout_berhasil)
+							{
+								echo '<div class="alert bg-success alert-styled-left">'.
+								'<button type="button" class="close" data-dismiss="alert">'.
+								'<span>'.'&times;'.'</span>'.
+								'<span class="sr-only">'.'Close'.'</span>'.'</button>'.
+								'<span class="text-semibold">'.$logout_berhasil.'</span>'.
+								'</div>';
+							}
+							if ($username_email_password_salah)
+							{
+								echo '<div class="alert bg-danger-400 alert-styled-left">'.
+								'<button type="button" class="close" data-dismiss="alert">'.
+								'<span>'.'&times;'.'</span>'.
+								'<span class="sr-only">'.'Close'.'</span>'.'</button>'.
+								'<span class="text-semibold">'.$username_email_password_salah.'</span>'.
+								'</div>';
+							}
 
-					    ?>
-					   
-					    <!-- /solid alert -->
+							?>
+							
+							<!-- /solid alert -->
 
-					    </div>
-					    <div class="col-md-3"></div>
-					    </div>
+						</div>
+						<div class="col-md-3"></div>
+					</div>
 
 					<!-- Simple login form -->
 					<form action="<?php echo base_url(); ?>admin/do_login" method="POST">

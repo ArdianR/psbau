@@ -63,7 +63,7 @@
 				FROM psb_log
 				WHERE notifikasi='Telah Login'
 				GROUP BY Tanggal
-				ORDER BY Tanggal DESC LIMIT 0,10
+				ORDER BY Tanggal ASC LIMIT 0,10
 			");
 			$this->db->close();
 			return $query;

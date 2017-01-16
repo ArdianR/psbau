@@ -39,32 +39,32 @@ require_once('layout/sidebar.php');
 									<div class="panel-body">
 										<legend>Data Penerimaan Calon Siswa</legend>
 										<div class="col-md-9">
-										<div class="form-group">
-											<label for="inputLembaga" class="col-lg-2 control-label">Lembaga <span style="color:red;">*</span></label>
-											<div class="col-lg-5">
-												<select class="form-control" name="inputLembaga" id="inputLembaga">
-													<?php foreach($_lembaga->result() as $row) {
-														echo '<option selected>'.$row->lembaga.'</option>';
-													} ?>
-												</select>
+											<div class="form-group">
+												<label for="inputLembaga" class="col-lg-2 control-label">Lembaga <span style="color:red;">*</span></label>
+												<div class="col-lg-5">
+													<select class="form-control" name="inputLembaga" id="inputLembaga">
+														<?php foreach($_lembaga->result() as $row) {
+															echo '<option selected>'.$row->lembaga.'</option>';
+														} ?>
+													</select>
+												</div>
 											</div>
-										</div>
-										<div id="select_form_siswa"></div>
+											<div id="select_form_siswa"></div>
 										</div>
 										<div class="col-md-3">
-							                 <div class="form-group">
-						                		<div class="fileinput fileinput-new" data-provides="fileinput">
-												  <div class="fileinput-new thumbnail" style="width: 200px; height: 200px;">
-												    <img src="<?php echo base_url(); ?>assets2/images/profpic/default-foto.png" alt="...">
-												  </div>
-												  <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 200px;"></div>
-												  <div>
-												    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="fileFoto"></span>
-												    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-												  </div>
+											<div class="form-group">
+												<div class="fileinput fileinput-new" data-provides="fileinput">
+													<div class="fileinput-new thumbnail" style="width: 200px; height: 200px;">
+														<img src="<?php echo base_url(); ?>assets2/images/profpic/default-foto.png" alt="...">
+													</div>
+													<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 200px;"></div>
+													<div>
+														<span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="fileFoto"></span>
+														<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+													</div>
 												</div>
-							                 </div>
-							          </div>
+											</div>
+										</div>
 
 										<br>
 										<legend>Data Pribadi Calon Siswa</legend>
@@ -528,7 +528,7 @@ require_once('layout/sidebar.php');
 										<div class="form-group">
 											<label for="inputHobi" class="col-lg-2 control-label">Hobi</label>
 											<div class="col-lg-5">
-											<input type="text" class="form-control" name="inputHobi" id="inputHobi" value="">
+												<input type="text" class="form-control" name="inputHobi" id="inputHobi" value="">
 											</div>
 										</div>
 
@@ -796,32 +796,32 @@ require_once('layout/sidebar.php');
 													<center> <button type="submit" class="btn btn-primary">Selesai & Simpan</button> </center>
 												</div>
 											</div>
-										
+											
 
+										</div>
 									</div>
-								</div>
 								</fieldset>
 							</form>
 						</div>
 					</div>
 
 
-<script type="text/javascript"> 
-$(document).ready(function(){ 
-  $("#inputLembaga").change(function(){ 
-    var lembaga = $("#inputLembaga").val(); 
-    $.ajax({ 
-      type  : 'GET', 
-      url : "<?php echo base_url(); ?>admin/tambahcalonsiswa", 
-      data  : "lembaga="+lembaga, 
-      cache : false, 
-      success : function(data){ 
-        $("#select_form_siswa").html(data); 
-      } 
-    }); 
-  }).change(); 
-}); 
-</script>
+					<script type="text/javascript"> 
+						$(document).ready(function(){ 
+							$("#inputLembaga").change(function(){ 
+								var lembaga = $("#inputLembaga").val(); 
+								$.ajax({ 
+									type  : 'GET', 
+									url : "<?php echo base_url(); ?>admin/tambahcalonsiswa", 
+									data  : "lembaga="+lembaga, 
+									cache : false, 
+									success : function(data){ 
+										$("#select_form_siswa").html(data); 
+									} 
+								}); 
+							}).change(); 
+						}); 
+					</script>
 					<!-- Footer -->
 					<?php require_once('layout/footer.php'); ?>
 <!-- /footer -->

@@ -9,7 +9,6 @@ class Pendaftaran extends CI_Controller {
 		parent::__construct();
 		//$this->load->library("Pdf");
 	}
-	
 	protected function zerofill ($num, $zerofill)
 	{
 		return str_pad($num, $zerofill, '0', STR_PAD_LEFT);
@@ -1231,9 +1230,6 @@ class Pendaftaran extends CI_Controller {
 			//$data['email'] = $email;
 
 			$this->load->view('calonsiswa/v_pembayaran', $data);
-		}
-		
-		
+		}	
 	}
-
 }

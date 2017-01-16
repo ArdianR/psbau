@@ -3,21 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
 	protected function zerofill ($num, $zerofill)
 	{
 		return str_pad($num, $zerofill, '0', STR_PAD_LEFT);
@@ -29,19 +14,15 @@ class Admin extends CI_Controller {
 		$login = $this->session->userdata('loginadmin');
 		if ($login==false)
 		{
-
-		$data;
-
+			$data;
 		//title head
-		$data['title']='Login | MAU-MBI Amanatul Ummah Surabaya';
-
+			$data['title']='Login | MAU-MBI Amanatul Ummah Surabaya';
 		//pesan berhasil
-		$data['logout_berhasil'] = $this->session->flashdata('logout_berhasil');
+			$data['logout_berhasil'] = $this->session->flashdata('logout_berhasil');
 		//pesan gagal
-		$data['username_email_password_salah'] = $this->session->flashdata('username_email_password_salah');
+			$data['username_email_password_salah'] = $this->session->flashdata('username_email_password_salah');
 
-		$this->load->view('admin/v_login', $data);
-
+			$this->load->view('admin/v_login', $data);
 		}
 		
 		else
@@ -56,7 +37,6 @@ class Admin extends CI_Controller {
 	{
 
 		$this->load->model('M_admin');
-
 		$this->M_admin->setUsername($this->input->post('inputUserEmail'));
 		$this->M_admin->setEmail($this->input->post('inputUserEmail'));
 		$this->M_admin->setPassword(md5($this->input->post('inputPassword')));
@@ -94,11 +74,11 @@ class Admin extends CI_Controller {
 	public function logout()
 	{
 		$login = $this->session->userdata('loginadmin');
-			$this->session->unset_userdata('login');
-			$this->session->set_flashdata('logout_berhasil','Anda berhasil logout');
+		$this->session->unset_userdata('loginadmin');
+		$this->session->set_flashdata('logout_berhasil','Anda berhasil logout');
 			//header('location : ../home'); nggak bisa gini kalo di CodeIgniter
-			$this->load->helper('url');
-			redirect('admin','location');
+		$this->load->helper('url');
+		redirect('admin','referesh');
 	}
 
 	public function dashboard()
@@ -116,17 +96,6 @@ class Admin extends CI_Controller {
 			$this->load->model('M_calonsiswa');
 			$this->load->model('M_referensi');
 			$this->load->model('M_log');
-
-			$data=array(	
-				'dashboard_active' 			=> 'class="active"',
-				'datasiswa_active' 			=> 'class=""',
-				'pencariansiswa_active' 	=> 'class=""',
-				'referensi_active' 			=> 'class=""',
-				'admin_active' 				=> 'class=""',
-				'tambahadmin_active' 		=> 'class=""',
-				'profil_active' 			=> 'class=""',
-				'resetpassword_active' 		=> 'class=""'
-				);
 
 			//title head
 			$data['title']='Dashboard | PSB MAU-MBI Amanatul Ummah Surabaya';
@@ -152,39 +121,39 @@ class Admin extends CI_Controller {
 			$this->M_calonsiswa->setKelompok('Gelombang 1');
 			$query = $this->M_calonsiswa->getKelompokLembaga();
 			if ($query->num_rows()>0){
-					foreach ($query->result() as $row)
-						$data['kelompok1mau'] = $row->kelompoklembaga;
-				}
+				foreach ($query->result() as $row)
+					$data['kelompok1mau'] = $row->kelompoklembaga;
+			}
 			
 			$this->M_calonsiswa->setKelompok('Gelombang 2');
 			$query = $this->M_calonsiswa->getKelompokLembaga();
 			if ($query->num_rows()>0){
-					foreach ($query->result() as $row)
-						$data['kelompok2mau'] = $row->kelompoklembaga;
-				}	
+				foreach ($query->result() as $row)
+					$data['kelompok2mau'] = $row->kelompoklembaga;
+			}	
 			
 			//mbi
 			$this->M_calonsiswa->setLembaga('MBI Amanatul Ummah');
 			$this->M_calonsiswa->setKelompok('Gelombang 1');
 			$query = $this->M_calonsiswa->getKelompokLembaga();
 			if ($query->num_rows()>0){
-					foreach ($query->result() as $row)
-						$data['kelompok1mbi'] = $row->kelompoklembaga;
-				}
+				foreach ($query->result() as $row)
+					$data['kelompok1mbi'] = $row->kelompoklembaga;
+			}
 			
 			$this->M_calonsiswa->setKelompok('Gelombang 2');
 			$query = $this->M_calonsiswa->getKelompokLembaga();
 			if ($query->num_rows()>0){
-					foreach ($query->result() as $row)
-						$data['kelompok2mbi'] = $row->kelompoklembaga;
-				}	
+				foreach ($query->result() as $row)
+					$data['kelompok2mbi'] = $row->kelompoklembaga;
+			}	
 
 			//Jumlah Login Sistem sampai saat ini
 			$query = $this->M_log->getAllCountLogin();
 			if ($query->num_rows()>0){
-					foreach ($query->result() as $row)
-						$data['jumlahlogin'] = $row->jumlahlogin;
-				}	
+				foreach ($query->result() as $row)
+					$data['jumlahlogin'] = $row->jumlahlogin;
+			}	
 			
 			//grafik pengunjung login tiap hari
 			$data['pengunjunglogin'] = $this->M_log->getCountVisitorLogin();
@@ -205,18 +174,6 @@ class Admin extends CI_Controller {
 		else
 		{
 			$data="";
-			//menu active
-			$data=array(	
-				'dashboard_active' 			=> 'class=""',
-				'datasiswa_active' 			=> 'class="active"',
-				'pencariansiswa_active' 	=> 'class=""',
-				'referensi_active' 			=> 'class=""',
-				'admin_active' 				=> 'class=""',
-				'tambahadmin_active' 		=> 'class=""',
-				'profil_active' 			=> 'class=""',
-				'resetpassword_active' 		=> 'class=""'
-				);
-
 			//title head
 			$data['title'] = 'Data Siswa | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
@@ -284,21 +241,10 @@ class Admin extends CI_Controller {
 		else
 		{
 			$data="";
-			//menu active
-			$data=array(	
-				'dashboard_active' 			=> 'class=""',
-				'datasiswa_active' 			=> 'class="active"',
-				'pencariansiswa_active' 	=> 'class=""',
-				'referensi_active' 			=> 'class=""',
-				'admin_active' 				=> 'class=""',
-				'tambahadmin_active' 		=> 'class=""',
-				'profil_active' 			=> 'class=""',
-				'resetpassword_active' 		=> 'class=""'
-				);
 
 			//title head
 			$data['title'] = 'Tambah Calon Siswa | PSB MAU-MBI Amanatul Ummah Surabaya';
-	
+
 			$data['namaadmin'] = $this->session->userdata('nama');
 			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
 
@@ -338,12 +284,12 @@ class Admin extends CI_Controller {
 	protected function do_unggahfoto($nopendaftaran)
 	{
 		    //$this->load->model('M_calonsiswa');
-			$nama = $this->input->post('inputNama');
+		$nama = $this->input->post('inputNama');
 
-			$namaedit =  str_replace(" ", "_", $nama);
+		$namaedit =  str_replace(" ", "_", $nama);
 
 			//UPLOAD FOTO
-			$this->load->library('upload');
+		$this->load->library('upload');
 	        $namafile = $nopendaftaran.'-'.$namaedit.'-'.time(); //nama file saya beri nama langsung dan diikuti fungsi time
 	        $path = './assets/profpic/';
 	        $config['upload_path'] = $path; //path folder
@@ -352,21 +298,21 @@ class Admin extends CI_Controller {
 	        $config['max_width']  = '450'; //lebar maksimum 400 px
 	        $config['max_height']  = '650'; //tinggi maksimu 600 px
 	        $config['file_name'] = $namafile; //nama yang terupload nantinya
-	 
+
 	        $this->upload->initialize($config);
-	         
+
 	        if(!empty($_FILES['fileFoto']['name']))
 	        {
-	            if ($this->upload->do_upload('fileFoto'))
-	            {
-		            $this->upload->data();
-		            $linkfoto = $namafile.'.jpg';
-		 			$data['linkfoto'] = $this->M_calonsiswa->setLinkFoto($linkfoto);
-	              
-	            }else{
+	        	if ($this->upload->do_upload('fileFoto'))
+	        	{
+	        		$this->upload->data();
+	        		$linkfoto = $namafile.'.jpg';
+	        		$data['linkfoto'] = $this->M_calonsiswa->setLinkFoto($linkfoto);
+
+	        	}else{
 	                //pesan yang muncul jika terdapat error dimasukkan pada session flashdata
-	                $this->session->set_flashdata("upload_foto_gagal", "Format atau Ukuran Foto Tidak Sesuai");
-	            }
+	        		$this->session->set_flashdata("upload_foto_gagal", "Format atau Ukuran Foto Tidak Sesuai");
+	        	}
 	        }
 	        else{
 	        	$data['foto'] = $this->M_calonsiswa->getFotoFromAdmin($nopendaftaran);
@@ -375,163 +321,163 @@ class Admin extends CI_Controller {
 	        }	
 
 	        //END UPLOAD FOTO
-	} 
+	    } 
 
-	public function do_tambahcalonsiswa()
-	{
-		$this->load->library('session');
-		$login = $this->session->userdata('loginadmin');
-		if ($login==false)
-		{
-			$this->load->helper('url');
-			redirect('admin','location');
-		}
-		else
-		{
-			$this->load->model('M_calonsiswa');
+	    public function do_tambahcalonsiswa()
+	    {
+	    	$this->load->library('session');
+	    	$login = $this->session->userdata('loginadmin');
+	    	if ($login==false)
+	    	{
+	    		$this->load->helper('url');
+	    		redirect('admin','location');
+	    	}
+	    	else
+	    	{
+	    		$this->load->model('M_calonsiswa');
 
 			//input penerimaan calon siswa		
-			$this->M_calonsiswa->setLembaga($this->input->post('inputLembaga'));
-			$this->M_calonsiswa->setKelompok($this->input->post('inputKelompok'));
-			$this->M_calonsiswa->setTahunMasuk($this->input->post('inputTahunMasuk'));
+	    		$this->M_calonsiswa->setLembaga($this->input->post('inputLembaga'));
+	    		$this->M_calonsiswa->setKelompok($this->input->post('inputKelompok'));
+	    		$this->M_calonsiswa->setTahunMasuk($this->input->post('inputTahunMasuk'));
 
 			//input data diri calon siswa
-			$this->M_calonsiswa->setNISN($this->input->post('inputNISN'));
-			$this->M_calonsiswa->setNIK($this->input->post('inputNIK'));
-			$this->M_calonsiswa->setNoUN($this->input->post('inputNoUN'));
-			$this->M_calonsiswa->setNama($this->input->post('inputNama'));
-			$this->M_calonsiswa->setPanggilan($this->input->post('inputPanggilan'));
-			$this->M_calonsiswa->setJenisKelamin($this->input->post('inputJenisKelamin'));
-			$this->M_calonsiswa->setTempatLahir($this->input->post('inputTempatLahir'));
+	    		$this->M_calonsiswa->setNISN($this->input->post('inputNISN'));
+	    		$this->M_calonsiswa->setNIK($this->input->post('inputNIK'));
+	    		$this->M_calonsiswa->setNoUN($this->input->post('inputNoUN'));
+	    		$this->M_calonsiswa->setNama($this->input->post('inputNama'));
+	    		$this->M_calonsiswa->setPanggilan($this->input->post('inputPanggilan'));
+	    		$this->M_calonsiswa->setJenisKelamin($this->input->post('inputJenisKelamin'));
+	    		$this->M_calonsiswa->setTempatLahir($this->input->post('inputTempatLahir'));
 
-			$this->M_calonsiswa->setTanggalLahir($this->input->post('inputTanggalLahir'));
-			$this->M_calonsiswa->setAgama($this->input->post('inputAgama'));
-			$this->M_calonsiswa->setSuku($this->input->post('inputSuku'));
-			$this->M_calonsiswa->setKondisi($this->input->post('inputKondisi'));
-			$this->M_calonsiswa->setKewarganegaraan($this->input->post('inputKewarganegaraan'));
-			$this->M_calonsiswa->setAnakKe($this->input->post('inputAnakKe'));
-			$this->M_calonsiswa->setJumlahSaudara($this->input->post('inputJumlahSaudara'));
+	    		$this->M_calonsiswa->setTanggalLahir($this->input->post('inputTanggalLahir'));
+	    		$this->M_calonsiswa->setAgama($this->input->post('inputAgama'));
+	    		$this->M_calonsiswa->setSuku($this->input->post('inputSuku'));
+	    		$this->M_calonsiswa->setKondisi($this->input->post('inputKondisi'));
+	    		$this->M_calonsiswa->setKewarganegaraan($this->input->post('inputKewarganegaraan'));
+	    		$this->M_calonsiswa->setAnakKe($this->input->post('inputAnakKe'));
+	    		$this->M_calonsiswa->setJumlahSaudara($this->input->post('inputJumlahSaudara'));
 
-			$this->M_calonsiswa->setAlamatSiswa($this->input->post('inputAlamatSiswa'));
-			$this->M_calonsiswa->setDesa($this->input->post('inputDesa'));
-			$this->M_calonsiswa->setRT($this->input->post('inputRT'));
-			$this->M_calonsiswa->setRW($this->input->post('inputRW'));
-			$this->M_calonsiswa->setKecamatan($this->input->post('inputKecamatan'));
-			$this->M_calonsiswa->setKota($this->input->post('inputKota'));
-			$this->M_calonsiswa->setProvinsi($this->input->post('inputProvinsi'));
-			$this->M_calonsiswa->setKodePos($this->input->post('inputKodePos'));
-			$this->M_calonsiswa->setJarak($this->input->post('inputJarak'));
-			$this->M_calonsiswa->setHPSiswa($this->input->post('inputHPSiswa'));
-			$this->M_calonsiswa->setEmailSiswa($this->input->post('inputEmailSiswa'));
-			$this->M_calonsiswa->setAsalSekolah($this->input->post('inputAsalSekolah'));
-			$this->M_calonsiswa->setNoIjasah($this->input->post('inputNoIjasah'));
-			$this->M_calonsiswa->setTanggalIjasah($this->input->post('inputTanggalIjasah'));
-			$this->M_calonsiswa->setKeteranganSekolah($this->input->post('inputKeteranganSekolah'));
+	    		$this->M_calonsiswa->setAlamatSiswa($this->input->post('inputAlamatSiswa'));
+	    		$this->M_calonsiswa->setDesa($this->input->post('inputDesa'));
+	    		$this->M_calonsiswa->setRT($this->input->post('inputRT'));
+	    		$this->M_calonsiswa->setRW($this->input->post('inputRW'));
+	    		$this->M_calonsiswa->setKecamatan($this->input->post('inputKecamatan'));
+	    		$this->M_calonsiswa->setKota($this->input->post('inputKota'));
+	    		$this->M_calonsiswa->setProvinsi($this->input->post('inputProvinsi'));
+	    		$this->M_calonsiswa->setKodePos($this->input->post('inputKodePos'));
+	    		$this->M_calonsiswa->setJarak($this->input->post('inputJarak'));
+	    		$this->M_calonsiswa->setHPSiswa($this->input->post('inputHPSiswa'));
+	    		$this->M_calonsiswa->setEmailSiswa($this->input->post('inputEmailSiswa'));
+	    		$this->M_calonsiswa->setAsalSekolah($this->input->post('inputAsalSekolah'));
+	    		$this->M_calonsiswa->setNoIjasah($this->input->post('inputNoIjasah'));
+	    		$this->M_calonsiswa->setTanggalIjasah($this->input->post('inputTanggalIjasah'));
+	    		$this->M_calonsiswa->setKeteranganSekolah($this->input->post('inputKeteranganSekolah'));
 
 			//input fisik calon siswa
-			$this->M_calonsiswa->setDarah($this->input->post('inputDarah'));
-			$this->M_calonsiswa->setBerat($this->input->post('inputBerat'));
-			$this->M_calonsiswa->setTinggi($this->input->post('inputTinggi'));
-			$this->M_calonsiswa->setUkuranSepatu($this->input->post('inputUkuranSepatu'));
-			$this->M_calonsiswa->setUkuranBaju($this->input->post('inputUkuranBaju'));
-			$this->M_calonsiswa->setUkuranCelana($this->input->post('inputUkuranCelana'));
-			$this->M_calonsiswa->setKesehatan($this->input->post('inputKesehatan'));
-			$this->M_calonsiswa->setHobi($this->input->post('inputHobi'));
+	    		$this->M_calonsiswa->setDarah($this->input->post('inputDarah'));
+	    		$this->M_calonsiswa->setBerat($this->input->post('inputBerat'));
+	    		$this->M_calonsiswa->setTinggi($this->input->post('inputTinggi'));
+	    		$this->M_calonsiswa->setUkuranSepatu($this->input->post('inputUkuranSepatu'));
+	    		$this->M_calonsiswa->setUkuranBaju($this->input->post('inputUkuranBaju'));
+	    		$this->M_calonsiswa->setUkuranCelana($this->input->post('inputUkuranCelana'));
+	    		$this->M_calonsiswa->setKesehatan($this->input->post('inputKesehatan'));
+	    		$this->M_calonsiswa->setHobi($this->input->post('inputHobi'));
 
 			//input data orang tua
-			$this->M_calonsiswa->setNamaAyah($this->input->post('inputNamaAyah'));
-			$this->M_calonsiswa->setNamaIbu($this->input->post('inputNamaIbu'));
-			$this->M_calonsiswa->setAlmAyah($this->input->post('inputAlmAyah'));
-			$this->M_calonsiswa->setAlmIbu($this->input->post('inputAlmIbu'));
-			$this->M_calonsiswa->setStatusAyah($this->input->post('inputStatusAyah'));
-			$this->M_calonsiswa->setStatusIbu($this->input->post('inputStatusIbu'));
-			$this->M_calonsiswa->setTempatLahirAyah($this->input->post('inputTempatLahirAyah'));
-			$this->M_calonsiswa->setTempatLahirIbu($this->input->post('inputTempatLahirIbu'));
+	    		$this->M_calonsiswa->setNamaAyah($this->input->post('inputNamaAyah'));
+	    		$this->M_calonsiswa->setNamaIbu($this->input->post('inputNamaIbu'));
+	    		$this->M_calonsiswa->setAlmAyah($this->input->post('inputAlmAyah'));
+	    		$this->M_calonsiswa->setAlmIbu($this->input->post('inputAlmIbu'));
+	    		$this->M_calonsiswa->setStatusAyah($this->input->post('inputStatusAyah'));
+	    		$this->M_calonsiswa->setStatusIbu($this->input->post('inputStatusIbu'));
+	    		$this->M_calonsiswa->setTempatLahirAyah($this->input->post('inputTempatLahirAyah'));
+	    		$this->M_calonsiswa->setTempatLahirIbu($this->input->post('inputTempatLahirIbu'));
 
-			$this->M_calonsiswa->setTanggalLahirAyah($this->input->post('inputTanggalLahirAyah'));
-			$this->M_calonsiswa->setTanggalLahirIbu($this->input->post('inputTanggalLahirIbu'));
-			$this->M_calonsiswa->setPendidikanAyah($this->input->post('inputPendidikanAyah'));
-			$this->M_calonsiswa->setPendidikanIbu($this->input->post('inputPendidikanIbu'));
-			$this->M_calonsiswa->setPekerjaanAyah($this->input->post('inputPekerjaanAyah'));
-			$this->M_calonsiswa->setPekerjaanIbu($this->input->post('inputPekerjaanIbu'));
+	    		$this->M_calonsiswa->setTanggalLahirAyah($this->input->post('inputTanggalLahirAyah'));
+	    		$this->M_calonsiswa->setTanggalLahirIbu($this->input->post('inputTanggalLahirIbu'));
+	    		$this->M_calonsiswa->setPendidikanAyah($this->input->post('inputPendidikanAyah'));
+	    		$this->M_calonsiswa->setPendidikanIbu($this->input->post('inputPendidikanIbu'));
+	    		$this->M_calonsiswa->setPekerjaanAyah($this->input->post('inputPekerjaanAyah'));
+	    		$this->M_calonsiswa->setPekerjaanIbu($this->input->post('inputPekerjaanIbu'));
 
-			$this->M_calonsiswa->setPenghasilanAyah($this->input->post('inputPenghasilanAyah'));
-			$this->M_calonsiswa->setPenghasilanIbu($this->input->post('inputPenghasilanIbu'));
-			$this->M_calonsiswa->setEmailAyah($this->input->post('inputEmailAyah'));
-			$this->M_calonsiswa->setEmailIbu($this->input->post('inputEmailIbu'));
-			$this->M_calonsiswa->setAlamatOrtu($this->input->post('inputAlamatOrtu'));
-			$this->M_calonsiswa->setHPOrtu($this->input->post('inputHPOrtu'));
+	    		$this->M_calonsiswa->setPenghasilanAyah($this->input->post('inputPenghasilanAyah'));
+	    		$this->M_calonsiswa->setPenghasilanIbu($this->input->post('inputPenghasilanIbu'));
+	    		$this->M_calonsiswa->setEmailAyah($this->input->post('inputEmailAyah'));
+	    		$this->M_calonsiswa->setEmailIbu($this->input->post('inputEmailIbu'));
+	    		$this->M_calonsiswa->setAlamatOrtu($this->input->post('inputAlamatOrtu'));
+	    		$this->M_calonsiswa->setHPOrtu($this->input->post('inputHPOrtu'));
 
-			$this->M_calonsiswa->setPrestasi($this->input->post('inputPrestasi'));
+	    		$this->M_calonsiswa->setPrestasi($this->input->post('inputPrestasi'));
 
-			$this->M_calonsiswa->setBinSmt1($this->input->post('inputBinSmt1'));
-			$this->M_calonsiswa->setBinSmt2($this->input->post('inputBinSmt2'));
-			$this->M_calonsiswa->setBinSmt3($this->input->post('inputBinSmt3'));
-			$this->M_calonsiswa->setBinSmt4($this->input->post('inputBinSmt4'));
-			$this->M_calonsiswa->setBinSmt5($this->input->post('inputBinSmt5'));
-			$this->M_calonsiswa->setBingSmt1($this->input->post('inputBingSmt1'));
-			$this->M_calonsiswa->setBingSmt2($this->input->post('inputBingSmt2'));
-			$this->M_calonsiswa->setBingSmt3($this->input->post('inputBingSmt3'));
-			$this->M_calonsiswa->setBingSmt4($this->input->post('inputBingSmt4'));
-			$this->M_calonsiswa->setBingSmt5($this->input->post('inputBingSmt5'));
-			$this->M_calonsiswa->setMatSmt1($this->input->post('inputMatSmt1'));
-			$this->M_calonsiswa->setMatSmt2($this->input->post('inputMatSmt2'));
-			$this->M_calonsiswa->setMatSmt3($this->input->post('inputMatSmt3'));
-			$this->M_calonsiswa->setMatSmt4($this->input->post('inputMatSmt4'));
-			$this->M_calonsiswa->setMatSmt5($this->input->post('inputMatSmt5'));
-			$this->M_calonsiswa->setIpaSmt1($this->input->post('inputIpaSmt1'));
-			$this->M_calonsiswa->setIpaSmt2($this->input->post('inputIpaSmt2'));
-			$this->M_calonsiswa->setIpaSmt3($this->input->post('inputIpaSmt3'));
-			$this->M_calonsiswa->setIpaSmt4($this->input->post('inputIpaSmt4'));
-			$this->M_calonsiswa->setIpaSmt5($this->input->post('inputIpaSmt5'));
-			$this->M_calonsiswa->setIpsSmt1($this->input->post('inputIpsSmt1'));
-			$this->M_calonsiswa->setIpsSmt2($this->input->post('inputIpsSmt2'));
-			$this->M_calonsiswa->setIpsSmt3($this->input->post('inputIpsSmt3'));
-			$this->M_calonsiswa->setIpsSmt4($this->input->post('inputIpsSmt4'));
-			$this->M_calonsiswa->setIpsSmt5($this->input->post('inputIpsSmt5'));
-			$this->M_calonsiswa->setAgamaSmt1($this->input->post('inputAgamaSmt1'));
-			$this->M_calonsiswa->setAgamaSmt2($this->input->post('inputAgamaSmt2'));
-			$this->M_calonsiswa->setAgamaSmt3($this->input->post('inputAgamaSmt3'));
-			$this->M_calonsiswa->setAgamaSmt4($this->input->post('inputAgamaSmt4'));
-			$this->M_calonsiswa->setAgamaSmt5($this->input->post('inputAgamaSmt5'));
-			$this->M_calonsiswa->setPpknSmt1($this->input->post('inputPpknSmt1'));
-			$this->M_calonsiswa->setPpknSmt2($this->input->post('inputPpknSmt2'));
-			$this->M_calonsiswa->setPpknSmt3($this->input->post('inputPpknSmt3'));
-			$this->M_calonsiswa->setPpknSmt4($this->input->post('inputPpknSmt4'));
-			$this->M_calonsiswa->setPpknSmt5($this->input->post('inputPpknSmt5'));
-			$this->M_calonsiswa->setPenjasSmt1($this->input->post('inputPenjasSmt1'));
-			$this->M_calonsiswa->setPenjasSmt2($this->input->post('inputPenjasSmt2'));
-			$this->M_calonsiswa->setPenjasSmt3($this->input->post('inputPenjasSmt3'));
-			$this->M_calonsiswa->setPenjasSmt4($this->input->post('inputPenjasSmt4'));
-			$this->M_calonsiswa->setPenjasSmt5($this->input->post('inputPenjasSmt5'));
-			$this->M_calonsiswa->setSeniSmt1($this->input->post('inputSeniSmt1'));
-			$this->M_calonsiswa->setSeniSmt2($this->input->post('inputSeniSmt2'));
-			$this->M_calonsiswa->setSeniSmt3($this->input->post('inputSeniSmt3'));
-			$this->M_calonsiswa->setSeniSmt4($this->input->post('inputSeniSmt4'));
-			$this->M_calonsiswa->setSeniSmt5($this->input->post('inputSeniSmt5'));
+	    		$this->M_calonsiswa->setBinSmt1($this->input->post('inputBinSmt1'));
+	    		$this->M_calonsiswa->setBinSmt2($this->input->post('inputBinSmt2'));
+	    		$this->M_calonsiswa->setBinSmt3($this->input->post('inputBinSmt3'));
+	    		$this->M_calonsiswa->setBinSmt4($this->input->post('inputBinSmt4'));
+	    		$this->M_calonsiswa->setBinSmt5($this->input->post('inputBinSmt5'));
+	    		$this->M_calonsiswa->setBingSmt1($this->input->post('inputBingSmt1'));
+	    		$this->M_calonsiswa->setBingSmt2($this->input->post('inputBingSmt2'));
+	    		$this->M_calonsiswa->setBingSmt3($this->input->post('inputBingSmt3'));
+	    		$this->M_calonsiswa->setBingSmt4($this->input->post('inputBingSmt4'));
+	    		$this->M_calonsiswa->setBingSmt5($this->input->post('inputBingSmt5'));
+	    		$this->M_calonsiswa->setMatSmt1($this->input->post('inputMatSmt1'));
+	    		$this->M_calonsiswa->setMatSmt2($this->input->post('inputMatSmt2'));
+	    		$this->M_calonsiswa->setMatSmt3($this->input->post('inputMatSmt3'));
+	    		$this->M_calonsiswa->setMatSmt4($this->input->post('inputMatSmt4'));
+	    		$this->M_calonsiswa->setMatSmt5($this->input->post('inputMatSmt5'));
+	    		$this->M_calonsiswa->setIpaSmt1($this->input->post('inputIpaSmt1'));
+	    		$this->M_calonsiswa->setIpaSmt2($this->input->post('inputIpaSmt2'));
+	    		$this->M_calonsiswa->setIpaSmt3($this->input->post('inputIpaSmt3'));
+	    		$this->M_calonsiswa->setIpaSmt4($this->input->post('inputIpaSmt4'));
+	    		$this->M_calonsiswa->setIpaSmt5($this->input->post('inputIpaSmt5'));
+	    		$this->M_calonsiswa->setIpsSmt1($this->input->post('inputIpsSmt1'));
+	    		$this->M_calonsiswa->setIpsSmt2($this->input->post('inputIpsSmt2'));
+	    		$this->M_calonsiswa->setIpsSmt3($this->input->post('inputIpsSmt3'));
+	    		$this->M_calonsiswa->setIpsSmt4($this->input->post('inputIpsSmt4'));
+	    		$this->M_calonsiswa->setIpsSmt5($this->input->post('inputIpsSmt5'));
+	    		$this->M_calonsiswa->setAgamaSmt1($this->input->post('inputAgamaSmt1'));
+	    		$this->M_calonsiswa->setAgamaSmt2($this->input->post('inputAgamaSmt2'));
+	    		$this->M_calonsiswa->setAgamaSmt3($this->input->post('inputAgamaSmt3'));
+	    		$this->M_calonsiswa->setAgamaSmt4($this->input->post('inputAgamaSmt4'));
+	    		$this->M_calonsiswa->setAgamaSmt5($this->input->post('inputAgamaSmt5'));
+	    		$this->M_calonsiswa->setPpknSmt1($this->input->post('inputPpknSmt1'));
+	    		$this->M_calonsiswa->setPpknSmt2($this->input->post('inputPpknSmt2'));
+	    		$this->M_calonsiswa->setPpknSmt3($this->input->post('inputPpknSmt3'));
+	    		$this->M_calonsiswa->setPpknSmt4($this->input->post('inputPpknSmt4'));
+	    		$this->M_calonsiswa->setPpknSmt5($this->input->post('inputPpknSmt5'));
+	    		$this->M_calonsiswa->setPenjasSmt1($this->input->post('inputPenjasSmt1'));
+	    		$this->M_calonsiswa->setPenjasSmt2($this->input->post('inputPenjasSmt2'));
+	    		$this->M_calonsiswa->setPenjasSmt3($this->input->post('inputPenjasSmt3'));
+	    		$this->M_calonsiswa->setPenjasSmt4($this->input->post('inputPenjasSmt4'));
+	    		$this->M_calonsiswa->setPenjasSmt5($this->input->post('inputPenjasSmt5'));
+	    		$this->M_calonsiswa->setSeniSmt1($this->input->post('inputSeniSmt1'));
+	    		$this->M_calonsiswa->setSeniSmt2($this->input->post('inputSeniSmt2'));
+	    		$this->M_calonsiswa->setSeniSmt3($this->input->post('inputSeniSmt3'));
+	    		$this->M_calonsiswa->setSeniSmt4($this->input->post('inputSeniSmt4'));
+	    		$this->M_calonsiswa->setSeniSmt5($this->input->post('inputSeniSmt5'));
 
-			if ($this->input->post('inputLembaga')=='MA Unggulan Amanatul Ummah')
-			{
-				$data['psbmau'] = $this->M_calonsiswa->getPSBMAU();
-				$nomorpsb = $this->zerofill($data['psbmau']+1, 3);
-				$lembaga = 'MAU';
-			}
-			if ($this->input->post('inputLembaga')=='MBI Amanatul Ummah')
-			{
-				$data['psbmbi'] = $this->M_calonsiswa->getPSBMBI();
-				$nomorpsb = $this->zerofill($data['psbmbi']+1, 3);
-				$lembaga = 'MBI';
-			}
-			if ($this->input->post('inputKelompok')=='Gelombang 1')
-				$urutkelompok = 'G1';
-			if ($this->input->post('inputKelompok')=='Gelombang 2')
-				$urutkelompok = 'G2';
-			if ($this->input->post('inputKelompok')=='Gelombang 3')
-				$urutkelompok = 'G3';
-			if ($this->input->post('inputKelompok')=='Prestasi')
-				$urutkelompok = 'P1';
+	    		if ($this->input->post('inputLembaga')=='MA Unggulan Amanatul Ummah')
+	    		{
+	    			$data['psbmau'] = $this->M_calonsiswa->getPSBMAU();
+	    			$nomorpsb = $this->zerofill($data['psbmau']+1, 3);
+	    			$lembaga = 'MAU';
+	    		}
+	    		if ($this->input->post('inputLembaga')=='MBI Amanatul Ummah')
+	    		{
+	    			$data['psbmbi'] = $this->M_calonsiswa->getPSBMBI();
+	    			$nomorpsb = $this->zerofill($data['psbmbi']+1, 3);
+	    			$lembaga = 'MBI';
+	    		}
+	    		if ($this->input->post('inputKelompok')=='Gelombang 1')
+	    			$urutkelompok = 'G1';
+	    		if ($this->input->post('inputKelompok')=='Gelombang 2')
+	    			$urutkelompok = 'G2';
+	    		if ($this->input->post('inputKelompok')=='Gelombang 3')
+	    			$urutkelompok = 'G3';
+	    		if ($this->input->post('inputKelompok')=='Prestasi')
+	    			$urutkelompok = 'P1';
 
-			$tahunmasuk = SUBSTR($this->input->post('inputTahunMasuk'), 2);
+	    		$tahunmasuk = SUBSTR($this->input->post('inputTahunMasuk'), 2);
 			$nopendaftaran = 'PSB'.$lembaga.$urutkelompok.$tahunmasuk.$nomorpsb;  //belum ada nomor pendaftaran
 			$this->M_calonsiswa->setNoPendaftaran($nopendaftaran);	
 
@@ -595,21 +541,10 @@ class Admin extends CI_Controller {
 		else
 		{
 			$data="";
-			//menu active
-			$data=array(	
-				'dashboard_active' 			=> 'class=""',
-				'datasiswa_active' 			=> 'class="active"',
-				'pencariansiswa_active' 	=> 'class=""',
-				'referensi_active' 			=> 'class=""',
-				'admin_active' 				=> 'class=""',
-				'tambahadmin_active' 		=> 'class=""',
-				'profil_active' 			=> 'class=""',
-				'resetpassword_active' 		=> 'class=""'
-				);
 
 			//title head
 			$data['title'] = 'Update Calon Siswa | PSB MAU-MBI Amanatul Ummah Surabaya';
-	
+
 			$data['namaadmin'] = $this->session->userdata('nama');
 			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
 
@@ -640,7 +575,7 @@ class Admin extends CI_Controller {
 
 			$this->load->model('M_calonsiswa');
 			$this->M_calonsiswa->setNoPendaftaran($nopendaftaran);
-		
+
 			$query = $this->M_calonsiswa->getCalonSiswaByNoPendaftaran();
 			
 			if ($query->num_rows()>0)
@@ -1159,18 +1094,6 @@ class Admin extends CI_Controller {
 		{
 
 			$data="";
-			//menu active
-			$data=array(	
-				'dashboard_active' 			=> 'class=""',
-				'datasiswa_active' 			=> 'class=""',
-				'pencariansiswa_active' 	=> 'class="active"',
-				'referensi_active' 			=> 'class=""',
-				'admin_active' 				=> 'class=""',
-				'tambahadmin_active' 		=> 'class=""',
-				'profil_active' 			=> 'class=""',
-				'resetpassword_active' 		=> 'class=""'
-				);
-
 			//title head
 			$data['title']='Cari Siswa | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
@@ -1180,7 +1103,7 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function referensi()
+	public function referensipsb()
 	{
 		$this->load->library('session');
 		$login = $this->session->userdata('loginadmin');
@@ -1192,24 +1115,13 @@ class Admin extends CI_Controller {
 		else
 		{
 			$data="";
-			//menu active
-			$data=array(	
-				'dashboard_active' 			=> 'class=""',
-				'datasiswa_active' 			=> 'class=""',
-				'pencariansiswa_active' 	=> 'class=""',
-				'referensi_active' 			=> 'class="active"',
-				'admin_active' 				=> 'class=""',
-				'tambahadmin_active' 		=> 'class=""',
-				'profil_active' 			=> 'class=""',
-				'resetpassword_active' 		=> 'class=""'
-				);
 
 			//title head
 			$data['title']='Referensi | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
 			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
-		
-			$this->load->view('admin/v_referensi', $data);
+
+			$this->load->view('admin/v_referensipsb', $data);
 		}
 	}
 
@@ -1226,17 +1138,6 @@ class Admin extends CI_Controller {
 		else
 		{
 			$data="";
-			//menu active
-			$data=array(	
-				'dashboard_active' 			=> 'class=""',
-				'datasiswa_active' 			=> 'class=""',
-				'pencariansiswa_active' 	=> 'class=""',
-				'referensi_active' 			=> 'class="active"',
-				'admin_active' 				=> 'class=""',
-				'tambahadmin_active' 		=> 'class=""',
-				'profil_active' 			=> 'class=""',
-				'resetpassword_active' 		=> 'class=""'
-				);
 
 			//title head
 			$data['title']='Referensi Lembaga | PSB MAU-MBI Amanatul Ummah Surabaya';
@@ -1246,10 +1147,11 @@ class Admin extends CI_Controller {
 			$data['tambah_lembaga_berhasil'] = $this->session->flashdata('tambah_lembaga_berhasil');
 			$data['hapus_lembaga_berhasil'] = $this->session->flashdata('hapus_lembaga_berhasil');
 			$data['update_lembaga_berhasil'] = $this->session->flashdata('update_lembaga_berhasil');
+			$data['urutan_sudah_ada'] = $this->session->flashdata('urutan_sudah_ada');
 
 			$this->load->model('M_referensi');
 			$data['query'] = $this->M_referensi->getAllLembaga();
-		
+
 			$this->load->view('admin/v_reflembaga', $data);
 		}
 	}
@@ -1267,14 +1169,17 @@ class Admin extends CI_Controller {
 		{
 			$data="";
 			//menu active
-
 			$this->load->model('M_referensi');
 			$this->M_referensi->setLembaga($this->input->post('inputLembaga'));
 			$this->M_referensi->setUrutan($this->input->post('inputUrutan'));
+			$queryurutan = $this->M_referensi->getUrutanLembaga();
+			if($queryurutan->num_rows() > 0)
+			{
+				$this->session->set_flashdata('urutan_sudah_ada', 'Maaf ! nomor urut sudah dipakai, silahkan mengganti nomor urut');
+				redirect('admin/referensi_lembaga', 'location');
+			}
 			$this->M_referensi->setKeterangan($this->input->post('inputKeterangan'));
-
 			$this->M_referensi->addLembaga();
-
 			$this->session->set_flashdata('tambah_lembaga_berhasil', 'Anda berhasil menambahkan lembaga, Silahkan aktifasi lembaga');
 			redirect('admin/referensi_lembaga', 'location');
 		}
@@ -1340,18 +1245,6 @@ class Admin extends CI_Controller {
 		else
 		{
 			$data="";
-			//menu active
-			$data=array(	
-				'dashboard_active' 			=> 'class=""',
-				'datasiswa_active' 			=> 'class=""',
-				'pencariansiswa_active' 	=> 'class=""',
-				'referensi_active' 			=> 'class="active"',
-				'admin_active' 				=> 'class=""',
-				'tambahadmin_active' 		=> 'class=""',
-				'profil_active' 			=> 'class=""',
-				'resetpassword_active' 		=> 'class=""'
-				);
-
 			//title head
 			$data['title']='Referensi Tahun Masuk | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
@@ -1378,7 +1271,7 @@ class Admin extends CI_Controller {
 			else{
 				$this->load->view('admin/v_reftahunmasuk', $data);
 			}
-		
+
 		}
 
 	}
@@ -1506,18 +1399,6 @@ class Admin extends CI_Controller {
 		else
 		{
 			$data="";
-			//menu active
-			$data=array(	
-				'dashboard_active' 			=> 'class=""',
-				'datasiswa_active' 			=> 'class=""',
-				'pencariansiswa_active' 	=> 'class=""',
-				'referensi_active' 			=> 'class="active"',
-				'admin_active' 				=> 'class=""',
-				'tambahadmin_active' 		=> 'class=""',
-				'profil_active' 			=> 'class=""',
-				'resetpassword_active' 		=> 'class=""'
-				);
-
 			//title head
 			$data['title']='Referensi Proses Penerimaan | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
@@ -1640,53 +1521,548 @@ class Admin extends CI_Controller {
 		}
 		else
 		{
-			$data="";
-			//menu active
-			$data=array(	
-				'dashboard_active' 			=> 'class=""',
-				'datasiswa_active' 			=> 'class=""',
-				'pencariansiswa_active' 	=> 'class=""',
-				'referensi_active' 			=> 'class="active"',
-				'admin_active' 				=> 'class=""',
-				'tambahadmin_active' 		=> 'class=""',
-				'profil_active' 			=> 'class=""',
-				'resetpassword_active' 		=> 'class=""'
-				);
-
 			//title head
 			$data['title']='Referensi Kelompok | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
 			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
+			//notifikasi
+			$data['tambah_kelompok_berhasil'] = $this->session->flashdata('tambah_kelompok_berhasil');
+			$data['tanggal_salah'] = $this->session->flashdata('tanggal_salah');
+			$data['update_kelompok_berhasil'] = $this->session->flashdata('update_kelompok_berhasil');
+			$data['hapus_berhasil'] = $this->session->flashdata('hapus_berhasil');
 
 			$this->load->model('M_referensi');
 			$data['_lembaga'] = $this->M_referensi->getLembaga();
-			$lembaga = $this->input->post('lembaga');
-			$query = $this->M_referensi->getProsesPenerimaanAktif($lembaga);
-			if ($query->num_rows()>0){
-					foreach ($query->result() as $row)
-					{
-						$data['idprosespenerimaan']  = $row->idprosespenerimaan;
-						$data['proses']  = $row->proses;
-					}
-				}
-			$idprosespenerimaan = $this->input->post('idproses');
 			
+			$lembaga = $this->input->get('lembaga');
+			$queryproses = $this->M_referensi->getProsesPenerimaanAktif($lembaga);
+			if($queryproses->num_rows()>0)
+			{
+				foreach ($queryproses->result() as $row) {
+					$data['idprosespenerimaan'] = $row->idprosespenerimaan;
+					$data['proses'] = $row->proses;
+				}
+			}
+
+			$idprosespenerimaan = $this->input->post('inputIdProses');
 			$data['query'] = $this->M_referensi->getAllKelompok($idprosespenerimaan);
 
-			if($data['query']->num_rows()>0)
+			if ($queryproses->num_rows()>0){
+				$this->load->view('admin/ajax/ajax_select_prosespenerimaan', $data);
+			}	
+			else
 			{
 				$data['status'] = 1;
-				$data['carilembaga'] = $lembaga;
-				//$data['v_tabelkelompok'] = $this->load->view('admin/tabelreferensi/v_tabelkelompok', $data);
-				$this->load->view('admin/ajax/ajax_table_kelompok', $data);
-				//redirect('admin/referensi_kelompok');
-				//$this->load->view('admin/v_refkelompok', $data);
-			}
-			else{
+				$data['carilembaga'] = $this->input->post('inputLembaga');
+				$data['cariproses'] = $this->input->post('inputProses');
+				$data['idproses'] = $idprosespenerimaan;
 				$this->load->view('admin/v_refkelompok', $data);
 			}
 		}
 	}
+	public function do_tambahkelompok()
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$data="";
+			$this->load->model('M_referensi');
+			$tanggalmulai = $this->input->post('inputTanggalMulai');
+			$tanggalselesai = $this->input->post('inputTanggalSelesai');
+			if($tanggalmulai > $tanggalselesai)
+			{
+				$this->session->set_flashdata('tanggal_salah', 'Maaf ! tanggal mulai harus lebih kecil dari tanggal selesai');
+				redirect('admin/referensi_kelompok', 'location');
+			}
+			$prosespenerimaan = $this->input->post('inputProsesPenerimaan');
+			$this->M_referensi->setKelompok($this->input->post('inputKelompok'));
+			$this->M_referensi->setIdProsesPenerimaan($this->input->post('inputIdProsesPenerimaan'));
+			$this->M_referensi->setKapasitas($this->input->post('inputKapasitas'));
+			$this->M_referensi->setTanggalMulai($tanggalmulai);
+			$this->M_referensi->setTanggalSelesai($tanggalselesai);
+
+			$this->M_referensi->setKeterangan($this->input->post('inputKeterangan'));
+			$this->M_referensi->addKelompok();
+			$this->session->set_flashdata('tambah_kelompok_berhasil', 'Anda berhasil menambah kelompok pada proses penerimaan '.$prosespenerimaan.'');
+			redirect('admin/referensi_kelompok', 'location');
+		}
+	}
+
+	public function do_updatekelompok($idkelompok)
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$data="";
+			$this->load->model('M_referensi');
+			$tanggalmulai = $this->input->post('inputTanggalMulai');
+			$tanggalselesai = $this->input->post('inputTanggalSelesai');
+			if($tanggalmulai > $tanggalselesai)
+			{
+				$this->session->set_flashdata('tanggal_salah', 'Maaf ! tanggal mulai harus lebih kecil dari tanggal selesai');
+				redirect('admin/referensi_kelompok', 'location');
+			}
+			$prosespenerimaan = $this->input->post('inputProsesPenerimaan');
+			$this->M_referensi->setIdKelompok($idkelompok);
+			$this->M_referensi->setKelompok($this->input->post('inputKelompok'));
+			$this->M_referensi->setIdProsesPenerimaan($this->input->post('inputIdProsesPenerimaan'));
+			$this->M_referensi->setKapasitas($this->input->post('inputKapasitas'));
+			$this->M_referensi->setTanggalMulai($tanggalmulai);
+			$this->M_referensi->setTanggalSelesai($tanggalselesai);
+			$this->M_referensi->setKeterangan($this->input->post('inputKeterangan'));
+			$this->M_referensi->updateKelompok();
+			$this->session->set_flashdata('update_kelompok_berhasil', 'Anda berhasil mengubah kelompok pada proses penerimaan '.$prosespenerimaan.'');
+			redirect('admin/referensi_kelompok', 'location');
+		}
+	}
+	public function do_hapuskelompok($idkelompok)
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_referensi');
+			$this->M_referensi->setIdKelompok($idkelompok);
+			$query = $this->M_referensi->deleteKelompok();
+			$this->session->set_flashdata('hapus_berhasil', 'Anda berhasil menghapus data kelompok');
+			redirect('admin/referensi_kelompok', 'location');
+		}
+	}
+
+	/*REFERENSI UMUM*/
+	public function referensiumum()
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$data="";
+			//title head
+			$data['title']='Referensi Umum | PSB MAU-MBI Amanatul Ummah Surabaya';
+			$data['namaadmin'] = $this->session->userdata('nama');
+			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
+			//notifikasi
+			$data['tambah_berhasil'] = $this->session->flashdata('tambah_berhasil');
+			$data['hapus_berhasil'] = $this->session->flashdata('hapus_berhasil');
+			$data['update_berhasil'] = $this->session->flashdata('update_berhasil');
+			$data['urutan_sudah_ada'] = $this->session->flashdata('urutan_sudah_ada');
+
+			$this->load->model('M_referensi');
+			$data['queryagama'] = $this->M_referensi->getAllAgama();
+			$data['querysuku'] = $this->M_referensi->getAllSuku();
+			$data['querykondisi'] = $this->M_referensi->getAllKondisi();
+			$data['querystatusortu'] = $this->M_referensi->getAllStatusOrtu();
+			$data['querypendidikan'] = $this->M_referensi->getAllPendidikan();
+			$data['querypenghasilan'] = $this->M_referensi->getAllPenghasilan();
+
+			$this->load->view('admin/v_referensiumum', $data);
+		}
+	}
+	/*END REFERENSI UMUM*/
+	/*CRUD AGAMA*/
+	public function do_tambahagama()
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_referensi');
+			$this->M_referensi->setAgama($this->input->post('inputAgama'));
+			$this->M_referensi->setUrutan($this->input->post('inputUrutan'));
+			$queryurutan = $this->M_referensi->getUrutanAgama();
+			if($queryurutan->num_rows() > 0)
+			{
+				$this->session->set_flashdata('urutan_sudah_ada', 'Maaf ! nomor urut sudah dipakai, silahkan mengganti nomor urut');
+				redirect('admin/referensiumum', 'location');
+			}
+			$query = $this->M_referensi->addAgama();
+			$this->session->set_flashdata('tambah_berhasil', 'Anda berhasil menambahkan data agama');
+			redirect('admin/referensiumum', 'location');
+		}
+	}
+	public function do_updateagama($idagama)
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_referensi');
+			$this->M_referensi->setIdAgama($idagama);
+			$this->M_referensi->setAgama($this->input->post('inputAgama'));
+			$this->M_referensi->setUrutan($this->input->post('inputUrutan'));
+			$query = $this->M_referensi->updateAgama();
+			$this->session->set_flashdata('update_berhasil', 'Anda berhasil mengubah data agama');
+			redirect('admin/referensiumum', 'location');
+		}
+	}
+	public function do_hapusagama($idagama)
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_referensi');
+			$this->M_referensi->setIdAgama($idagama);
+			$query = $this->M_referensi->deleteAgama();
+			$this->session->set_flashdata('hapus_berhasil', 'Anda berhasil menghapus data agama');
+			redirect('admin/referensiumum', 'location');
+		}
+	}
+	/*END CRUD AGAMA*/
+	/*CRUD PENGHASILAN*/
+	public function do_tambahpenghasilan()
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_referensi');
+			$this->M_referensi->setPenghasilan($this->input->post('inputPenghasilan'));
+			$this->M_referensi->setUrutan($this->input->post('inputUrutan'));
+			$queryurutan = $this->M_referensi->getUrutanPenghasilan();
+			if($queryurutan->num_rows() > 0)
+			{
+				$this->session->set_flashdata('urutan_sudah_ada', 'Maaf ! nomor urut sudah dipakai, silahkan mengganti nomor urut');
+				redirect('admin/referensiumum', 'location');
+			}
+			$query = $this->M_referensi->addPenghasilan();
+			$this->session->set_flashdata('tambah_berhasil', 'Anda berhasil menambahkan data penghasilan');
+			redirect('admin/referensiumum', 'location');
+		}
+	}
+	public function do_updatepenghasilan($idpenghasilan)
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_referensi');
+			$this->M_referensi->setIdPenghasilan($idpenghasilan);
+			$this->M_referensi->setPenghasilan($this->input->post('inputPenghasilan'));
+			$this->M_referensi->setUrutan($this->input->post('inputUrutan'));
+			$query = $this->M_referensi->updatePenghasilan();
+			$this->session->set_flashdata('update_berhasil', 'Anda berhasil mengubah data penghasilan');
+			redirect('admin/referensiumum', 'location');
+		}
+	}
+	public function do_hapuspenghasilan($idpenghasilan)
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_referensi');
+			$this->M_referensi->setIdPenghasilan($idpenghasilan);
+			$query = $this->M_referensi->deletePenghasilan();
+			$this->session->set_flashdata('hapus_berhasil', 'Anda berhasil menghapus data penghasilan');
+			redirect('admin/referensiumum', 'location');
+		}
+	}
+	/*END CRUD PENGHASILAN*/
+	/*CRUD KONDISI SISWA*/
+	public function do_tambahkondisi()
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_referensi');
+			$this->M_referensi->setKondisi($this->input->post('inputKondisi'));
+			$this->M_referensi->setUrutan($this->input->post('inputUrutan'));
+			$queryurutan = $this->M_referensi->getUrutanKondisi();
+			if($queryurutan->num_rows() > 0)
+			{
+				$this->session->set_flashdata('urutan_sudah_ada', 'Maaf ! nomor urut sudah dipakai, silahkan mengganti nomor urut');
+				redirect('admin/referensiumum', 'location');
+			}
+			$query = $this->M_referensi->addKondisi();
+			$this->session->set_flashdata('tambah_berhasil', 'Anda berhasil menambahkan data kondisi siswa');
+			redirect('admin/referensiumum', 'location');
+		}
+	}
+	public function do_updatekondisi($idkondisi)
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_referensi');
+			$this->M_referensi->setIdKondisi($idkondisi);
+			$this->M_referensi->setKondisi($this->input->post('inputKondisi'));
+			$this->M_referensi->setUrutan($this->input->post('inputUrutan'));
+			$query = $this->M_referensi->updateKondisi();
+			$this->session->set_flashdata('update_berhasil', 'Anda berhasil mengubah data kondisi');
+			redirect('admin/referensiumum', 'location');
+		}
+	}
+	public function do_hapuskondisi($idkondisi)
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_referensi');
+			$this->M_referensi->setIdKondisi($idkondisi);
+			$query = $this->M_referensi->deleteKondisi();
+			$this->session->set_flashdata('hapus_berhasil', 'Anda berhasil menghapus data kondisi');
+			redirect('admin/referensiumum', 'location');
+		}
+	}
+	/*END CRUD KONDISI SISWA*/
+	/*STATUS ORTU*/
+	public function do_tambahstatusortu()
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_referensi');
+			$this->M_referensi->setStatusOrtu($this->input->post('inputStatusOrtu'));
+			$this->M_referensi->setUrutan($this->input->post('inputUrutan'));
+			$queryurutan = $this->M_referensi->getUrutanStatusOrtu();
+			if($queryurutan->num_rows() > 0)
+			{
+				$this->session->set_flashdata('urutan_sudah_ada', 'Maaf ! nomor urut sudah dipakai, silahkan mengganti nomor urut');
+				redirect('admin/referensiumum', 'location');
+			}
+			$query = $this->M_referensi->addStatusOrtu();
+			$this->session->set_flashdata('tambah_berhasil', 'Anda berhasil menambahkan data status Orang Tua');
+			redirect('admin/referensiumum', 'location');
+		}
+	}
+	public function do_updatestatusortu($idstatusortu)
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_referensi');
+			$this->M_referensi->setIdStatusOrtu($idstatusortu);
+			$this->M_referensi->setStatusOrtu($this->input->post('inputStatusOrtu'));
+			$this->M_referensi->setUrutan($this->input->post('inputUrutan'));
+			$query = $this->M_referensi->updateStatusOrtu();
+			$this->session->set_flashdata('update_berhasil', 'Anda berhasil mengubah data status Orang Tua');
+			redirect('admin/referensiumum', 'location');
+		}
+	}
+	public function do_hapusstatusortu($idstatusortu)
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_referensi');
+			$this->M_referensi->setIdStatusOrtu($idstatusortu);
+			$query = $this->M_referensi->deleteStatusOrtu();
+			$this->session->set_flashdata('hapus_berhasil', 'Anda berhasil menghapus data status Orang Tua');
+			redirect('admin/referensiumum', 'location');
+		}
+	}
+	/*END CRUD STATUS ORTU*/
+	/*TINGKAT PENDIDIKAN*/
+	public function do_tambahpendidikan()
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_referensi');
+			$this->M_referensi->setPendidikan($this->input->post('inputPendidikan'));
+			$query = $this->M_referensi->addPendidikan();
+			$this->session->set_flashdata('tambah_berhasil', 'Anda berhasil menambahkan data tingkat pendidikan');
+			redirect('admin/referensiumum', 'location');
+		}
+	}
+	public function do_updatependidikan($idpendidikan)
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_referensi');
+			$this->M_referensi->setIdPendidikan($idpendidikan);
+			$this->M_referensi->setPendidikan($this->input->post('inputPendidikan'));
+			$query = $this->M_referensi->updatePendidikan();
+			$this->session->set_flashdata('update_berhasil', 'Anda berhasil mengubah data tingkat pendidikan');
+			redirect('admin/referensiumum', 'location');
+		}
+	}
+	public function do_hapuspendidikan($idpendidikan)
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_referensi');
+			$this->M_referensi->setIdPendidikan($idpendidikan);
+			$query = $this->M_referensi->deletePendidikan();
+			$this->session->set_flashdata('hapus_berhasil', 'Anda berhasil menghapus data tingkat pendidikan');
+			redirect('admin/referensiumum', 'location');
+		}
+	}
+	/*END CRUD TINGKAT PENDIDIKAN*/
+	/*SUKU*/
+	public function do_tambahsuku()
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_referensi');
+			$this->M_referensi->setSuku($this->input->post('inputSuku'));
+			$this->M_referensi->setUrutan($this->input->post('inputUrutan'));
+			$queryurutan = $this->M_referensi->getUrutanSuku();
+			if($queryurutan->num_rows() > 0)
+			{
+				$this->session->set_flashdata('urutan_sudah_ada', 'Maaf ! nomor urut sudah dipakai, silahkan mengganti nomor urut');
+				redirect('admin/referensiumum', 'location');
+			}
+			$query = $this->M_referensi->addSuku();
+			$this->session->set_flashdata('tambah_berhasil', 'Anda berhasil menambahkan data suku');
+			redirect('admin/referensiumum', 'location');
+		}
+	}
+	public function do_updatesuku($idsuku)
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_referensi');
+			$this->M_referensi->setIdSuku($idsuku);
+			$this->M_referensi->setSuku($this->input->post('inputSuku'));
+			$this->M_referensi->setUrutan($this->input->post('inputUrutan'));
+			$query = $this->M_referensi->updateSuku();
+			$this->session->set_flashdata('update_berhasil', 'Anda berhasil mengubah data suku');
+			redirect('admin/referensiumum', 'location');
+		}
+	}
+	public function do_hapussuku($idsuku)
+	{
+		$this->load->library('session');
+		$login = $this->session->userdata('loginadmin');
+		if ($login==false)
+		{
+			$this->load->helper('url');
+			redirect('admin','location');
+		}
+		else
+		{
+			$this->load->model('M_referensi');
+			$this->M_referensi->setIdSuku($idsuku);
+			$query = $this->M_referensi->deleteSuku();
+			$this->session->set_flashdata('hapus_berhasil', 'Anda berhasil menghapus data suku');
+			redirect('admin/referensiumum', 'location');
+		}
+	}
+	/*END CRUD SUKU*/
 
 	public function dataadmin()
 	{
@@ -1700,18 +2076,6 @@ class Admin extends CI_Controller {
 		else
 		{
 			$data="";
-			//menu active
-			$data=array(	
-				'dashboard_active' 			=> 'class=""',
-				'datasiswa_active' 			=> 'class=""',
-				'pencariansiswa_active' 	=> 'class=""',
-				'referensi_active' 			=> 'class=""',
-				'admin_active' 				=> 'class="active"',
-				'tambahadmin_active' 		=> 'class=""',
-				'profil_active' 			=> 'class=""',
-				'resetpassword_active' 		=> 'class=""'
-				);
-
 			//title head
 			$data['title']='Data Admin | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
@@ -1742,23 +2106,11 @@ class Admin extends CI_Controller {
 		else
 		{
 			$data="";
-			//menu active
-			$data=array(	
-				'dashboard_active' 			=> 'class=""',
-				'datasiswa_active' 			=> 'class=""',
-				'pencariansiswa_active' 	=> 'class=""',
-				'referensi_active' 			=> 'class=""',
-				'admin_active' 				=> 'class=""',
-				'tambahadmin_active' 		=> 'class="active"',
-				'profil_active' 			=> 'class=""',
-				'resetpassword_active' 		=> 'class=""'
-				);
-
 			//title head
 			$data['title']='Tambah Admin | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
 			$data['fotoadmin'] = $this->session->userdata('foto'); //session foto admin
-		
+
 			$this->load->view('admin/v_tambahadmin', $data);
 		}
 	}
@@ -1792,7 +2144,7 @@ class Admin extends CI_Controller {
 			$this->M_admin->setPanggilan($this->input->post('inputPanggilan'));		
 
 			$query = $this->M_admin->addAdmin();
-		
+
 			$this->session->set_flashdata('tambah_admin_berhasil', 'Anda berhasil menambahkan user admin');
 			redirect('admin/dataadmin', 'location');
 		}
@@ -1810,18 +2162,6 @@ class Admin extends CI_Controller {
 		else
 		{
 			$data="";
-			//menu active
-			$data=array(	
-				'dashboard_active' 			=> 'class=""',
-				'datasiswa_active' 			=> 'class=""',
-				'pencariansiswa_active' 	=> 'class=""',
-				'referensi_active' 			=> 'class=""',
-				'admin_active' 				=> 'class="active"',
-				'tambahadmin_active' 		=> 'class=""',
-				'profil_active' 			=> 'class=""',
-				'resetpassword_active' 		=> 'class=""'
-				);
-
 			//title head
 			$data['title']='Update Admin | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
@@ -1909,18 +2249,6 @@ class Admin extends CI_Controller {
 		else
 		{
 			$data="";
-			//menu active
-			$data=array(	
-				'dashboard_active' 			=> 'class=""',
-				'datasiswa_active' 			=> 'class=""',
-				'pencariansiswa_active' 	=> 'class=""',
-				'referensi_active' 			=> 'class=""',
-				'admin_active' 				=> 'class=""',
-				'tambahadmin_active' 		=> 'class=""',
-				'profil_active' 			=> 'class="active"',
-				'resetpassword_active' 		=> 'class=""'
-				);
-
 			//title head
 			$data['title']='Profil Admin | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
@@ -1944,7 +2272,7 @@ class Admin extends CI_Controller {
 					$data['email'] = $row->email;
 					$data['password'] = $row->password;
 					$data['foto'] = $row->foto;
- 				}	
+				}	
 			}
 			$this->load->view('admin/v_profiladmin', $data);
 		}
@@ -1999,7 +2327,7 @@ class Admin extends CI_Controller {
 
 	public function do_unggahfotoprofil()
 	{
-			
+
 		$this->load->library('session');
 		$login = $this->session->userdata('loginadmin');
 		$username = $this->session->userdata('username');
@@ -2023,31 +2351,29 @@ class Admin extends CI_Controller {
 	        $config['max_width']  = '600'; //lebar maksimum 400 px
 	        $config['max_height']  = '900'; //tinggi maksimu 600 px
 	        $config['file_name'] = $namafile; //nama yang terupload nantinya
-	 
+
 	        $this->upload->initialize($config);
-	         
+
 	        if(!empty($_FILES['fileFoto']['name']))
 	        {
-	            if ($this->upload->do_upload('fileFoto'))
-	            {
-		            $gambar = $this->upload->data();
-		            $linkfoto =  $namafile.'.'.$gambar['image_type'];
-		 			$this->M_admin->setLinkFoto($linkfoto);
+	        	if ($this->upload->do_upload('fileFoto'))
+	        	{
+	        		$gambar = $this->upload->data();
+	        		$linkfoto =  $namafile.'.'.$gambar['image_type'];
+	        		$this->M_admin->setLinkFoto($linkfoto);
 
-		 			$query = $this->M_admin->updateFotoProfil();
-		 			$this->session->set_flashdata('upload_foto_berhasil', 'Anda berhasil mengunggah foto profil admin');
+	        		$query = $this->M_admin->updateFotoProfil();
+	        		$this->session->set_flashdata('upload_foto_berhasil', 'Anda berhasil mengunggah foto profil admin');
 
-		 			redirect('admin/profil','location');
-	            }else{
+	        		redirect('admin/profil','location');
+	        	}else{
 	                //pesan yang muncul jika terdapat error dimasukkan pada session flashdata
-	                $this->session->set_flashdata("upload_foto_gagal", "Format atau Ukuran Foto Tidak Sesuai");
-	                redirect('admin/profil','location');
-	            }
+	        		$this->session->set_flashdata("upload_foto_gagal", "Format atau Ukuran Foto Tidak Sesuai");
+	        		redirect('admin/profil','location');
+	        	}
 	        }
 	        //END UPLOAD FOTO
-		}
-
-			
+	    }	
 	} 
 
 	public function resetpassword()
@@ -2062,18 +2388,6 @@ class Admin extends CI_Controller {
 		else
 		{
 			$data="";
-			//menu active
-			$data=array(	
-				'dashboard_active' 			=> 'class=""',
-				'datasiswa_active' 			=> 'class=""',
-				'pencariansiswa_active' 	=> 'class=""',
-				'referensi_active' 			=> 'class=""',
-				'admin_active' 				=> 'class=""',
-				'tambahadmin_active' 		=> 'class=""',
-				'profil_active' 			=> 'class=""',
-				'resetpassword_active' 		=> 'class="active"'
-				);
-
 			//title head
 			$data['title']='Reset Password Siswa | PSB MAU-MBI Amanatul Ummah Surabaya';
 			$data['namaadmin'] = $this->session->userdata('nama');
@@ -2081,7 +2395,8 @@ class Admin extends CI_Controller {
 			//notifikasi
 			$data['reset_password_berhasil'] = $this->session->flashdata('reset_password_berhasil');
 			$data['email_belum_terdaftar'] = $this->session->flashdata('email_belum_terdaftar');
-		
+			$data['reset_password_gagal'] = $this->session->flashdata('reset_password_gagal');
+
 			$this->load->view('admin/v_resetpassword', $data);
 		}
 	}
@@ -2097,9 +2412,9 @@ class Admin extends CI_Controller {
 		}
 		else
 		{
-	
 			$this->load->model('M_user');
-			$this->M_user->setEmail($this->input->post('inputEmail'));
+			$email = $this->input->post('inputEmail');
+			$this->M_user->setEmail($email);
 			$query = $this->M_user->getEmail();
 			if($query->num_rows()==0)
 			{
@@ -2110,13 +2425,50 @@ class Admin extends CI_Controller {
 			$this->M_user->setPassword($passwordbaru);
 
 			$this->M_user->updatePassword();
-			$this->session->set_flashdata('reset_password_berhasil', 'Anda berhasil reset password siswa dengan password baru "'.$passwordbaru.'"');
-			redirect('admin/resetpassword', 'location');
-		}
+
+			//memanggil library email dan set konfigurasi untuk pengiriman email	    
+			$this->load->library('email');
+			$config = array();
+			$config['charset'] = 'utf-8';
+			$config['useragent'] = 'Codeigniter';
+			$config['protocol']= "smtp";
+			$config['mailtype']= "html";
+	    	$config['smtp_host']= "srv24.niagahoster.com";//pengaturan smtp
+	    	$config['smtp_port']= "465";
+	    	$config['smtp_crypto'] = 'ssl';
+	    	$config['smtp_timeout']= "400";
+	    	$config['smtp_user']= "admin@mau-mbi-ausby.sch.id"; // isi dengan email kamu
+	    	$config['smtp_pass']= "suaraamanatulummah"; // isi dengan password kamu
+	    	$config['crlf']="\r\n"; 
+	    	$config['newline']="\r\n"; 
+	    	$config['wordwrap'] = TRUE;
+	    	
+
+	    	$this->email->initialize($config);
+	    	//konfigurasi pengiriman
+	    	$this->email->from($config['smtp_user'], 'PSB MAU-MBI Surabaya');
+	    	$this->email->to($this->input->post('inputEmail'));
+	    	$this->email->subject("Reset Password Akun PSB MAU-MBI Amanatul Ummah Surabaya");
+	    	$this->email->message(
+	    		"<strong>Berikut informasi akun PSB kamu yang baru:</strong><br>
+	    		Email : ".$email." <br>
+	    		Password : ".$passwordbaru." <br><br>
+	    		*Kami menyarankan untuk mengganti password untuk menjaga privasi anda <br>
+	    		Link registrasi PSB MAU-MBI Amanatul Ummah Sby :".site_url()."
+	    		<br><br>
+	    		Hormat Kami, <br><br><br><br>
+	    		Panitia PSB MAU-MBI Amanatul Ummah Surabaya
+	    		"
+	    		);
+
+	    	if($this->email->send())
+	    	{
+	    		$this->session->set_flashdata('reset_password_berhasil', 'Anda berhasil reset password siswa dengan password baru "'.$passwordbaru.'", dan Password Baru sudah terkirim ke email tujuan');
+	    	}else
+	    	{
+	    		$this->session->set_flashdata('reset_password_gagal', 'Anda berhasil reset password siswa, namu gagal mengirim ke email tujuan');
+	    	}
+	    	redirect('admin/resetpassword', 'location');
+	    }
 	}
-
-
 }
-
-
-

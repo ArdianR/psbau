@@ -36,7 +36,7 @@
 					</a>
 
 					<ul class="dropdown-menu dropdown-menu-right">
-						<li <?php echo $profil_active; ?>><a href="<?php echo base_url() ;?>admin/profil"><i class="icon-user-plus"></i> My profile</a></li>
+						<li class="<?php if($this->uri->segment(2)=="profil"){echo "active";}?>" ><a href="<?php echo base_url() ;?>admin/profil"><i class="icon-user-plus"></i> My profile</a></li>
 						<li class="divider"></li>
 						<li><a href="<?php echo base_url() ;?>admin/logout"><i class="icon-switch2"></i> Logout</a></li>
 					</ul>

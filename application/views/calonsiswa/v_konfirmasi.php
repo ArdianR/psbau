@@ -1,16 +1,16 @@
 <?php
-  require_once('layout/head.php');
-  require_once('layout/menuuser.php');
-  require_once('layout/stepbystep.php');
+require_once('layout/head.php');
+require_once('layout/menuuser.php');
+require_once('layout/stepbystep.php');
 ?> 
-	
-	<div class="container">
 
-		<div class="page-header">
-			<h2><strong>Finalisasi Pendaftaran</strong></h2>
-		</div>
+<div class="container">
 
-		<div class="jumbotron" style="background-color:#FCF8E3">
+	<div class="page-header">
+		<h2><strong>Finalisasi Pendaftaran</strong></h2>
+	</div>
+
+	<div class="jumbotron" style="background-color:#FCF8E3">
 		<p>Setelah difinalisasi, Anda tidak dapat mengubah data pendaftaran Anda lagi.</p>
 		<p>Pastikan Anda telah <a href="<?php echo base_url();?>pendaftaran/formpendaftaran">mengecek hal-hal berikut</a> :</p>
 		<p>
@@ -18,34 +18,34 @@
 			2. Foto yang Anda unggah telah sesuai dengan ketentuan. <br>
 			3. Isian formulir pendaftaran telah diisi dengan benar. <br> 
 		</p>
-		</div>
+	</div>
 
 	<form action="<?php echo base_url();?>pendaftaran/konfirmasi2">
 		<legend>
 			<h4><strong>Konfirmasi Siswa</strong></h4>
 		</legend>
 
-		 <div class="checkbox">
-          <label>
-            <input type="checkbox" name="konfirmasi" value="1" required=""> <strong style="font-size: 14px"> Saya telah mengecek pilihan lembaga dan gelombang masuk. Saya telah mengetahui persyaratan pendaftaran. Pilihan saya tidak akan berubah lagi. </strong> 
-           </label>
-            <br><br>
-            <label>
-            <input type="checkbox" name="konfirmasi" value="2" required=""> <strong style="font-size: 14px"> Saya telah mengunggah foto sesuai dengan persyaratan yang ditentukan.</strong> 
-            </label>
-            <br><br>
-            <label>
-            <input type="checkbox" name="konfirmasi" value="3" required=""> <strong style="font-size: 14px"> Saya telah mengisi formulir pendaftaran dengan data yang benar</strong>
-            </label>
-        </div>
-       
-        <!-- Button trigger modal -->
-        <br>
+		<div class="checkbox">
+			<label>
+				<input type="checkbox" name="konfirmasi" value="1" required=""> <strong style="font-size: 14px"> Saya telah mengecek pilihan lembaga dan gelombang masuk. Saya telah mengetahui persyaratan pendaftaran. Pilihan saya tidak akan berubah lagi. </strong> 
+			</label>
+			<br><br>
+			<label>
+				<input type="checkbox" name="konfirmasi" value="2" required=""> <strong style="font-size: 14px"> Saya telah mengunggah foto sesuai dengan persyaratan yang ditentukan.</strong> 
+			</label>
+			<br><br>
+			<label>
+				<input type="checkbox" name="konfirmasi" value="3" required=""> <strong style="font-size: 14px"> Saya telah mengisi formulir pendaftaran dengan data yang benar</strong>
+			</label>
+		</div>
+		
+		<!-- Button trigger modal -->
+		<br>
 		<button type="submit" class="btn btn-danger">
-		  Finalisasi Pendaftaran
+			Finalisasi Pendaftaran
 		</button>
 		<a type="button" class="btn btn-default" href="<?php echo base_url();?>pendaftaran/finalisasi">
-		 Tunda Finalisasi
+			Tunda Finalisasi
 		</a>
 
 		<!-- Modal -->
@@ -67,14 +67,14 @@
 		    </div>
 		  </div>
 		</div>
-		-->
+	-->
 
-	</form>
-	</div>
+</form>
+</div>
 
 
 
 <?php
-  require_once('layout/script.php');
-  require_once('layout/footer.php');
+require_once('layout/script.php');
+require_once('layout/footer.php');
 ?> 

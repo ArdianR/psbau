@@ -24,14 +24,13 @@ require_once('layout/sidebar.php');
 			</div>
 			<!-- /page header -->
 
-
 			<!-- Content area -->
 			<div class="content">
 				<!--Grafik jumlah kelompok dari tiap lembaga-->
 				<div class="row">
 					<div class="col-lg-12">
 						<form action="<?php echo base_url(); ?>admin/do_updatedatasiswa" class="form-horizontal" method="POST" enctype="multipart/form-data">
-						<input type="hidden" name="inputIdCalonSiswa" value="<?php echo ($idcalonsiswa ? $idcalonsiswa : "");?>">
+							<input type="hidden" name="inputIdCalonSiswa" value="<?php echo ($idcalonsiswa ? $idcalonsiswa : "");?>">
 							
 							<fieldset>
 								<div class="panel panel-flat">
@@ -42,12 +41,12 @@ require_once('layout/sidebar.php');
 										<legend>Data Penerimaan Calon Siswa</legend>
 										
 										<div class="col-md-9">
-										<div class="form-group">
-											<label for="inputNoPendaftaran" class="col-lg-2 control-label">No. Pendaftaran</label>
-											<div class="col-lg-5">
-												<input type="text" class="form-control" name="inputNoPendaftaran" id="inputNoPendaftaran"  value="<?php echo ($nopendaftaran ? $nopendaftaran : "");?>" readonly>
+											<div class="form-group">
+												<label for="inputNoPendaftaran" class="col-lg-2 control-label">No. Pendaftaran</label>
+												<div class="col-lg-5">
+													<input type="text" class="form-control" name="inputNoPendaftaran" id="inputNoPendaftaran"  value="<?php echo ($nopendaftaran ? $nopendaftaran : "");?>" readonly>
+												</div>
 											</div>
-										</div>
 											<div class="form-group">
 												<label for="inputLembaga" class="col-lg-2 control-label">Lembaga <span style="color:red;">*</span></label>
 												<div class="col-lg-5">
@@ -65,28 +64,28 @@ require_once('layout/sidebar.php');
 										</div>
 
 										<div class="col-md-3">
-							                 <div class="form-group">
-						                		<div class="fileinput fileinput-new" data-provides="fileinput">
-												  <div class="fileinput-new thumbnail" style="width: 200px; height: 200px;">
-												    <img src="
-												    	<?php 
-															if($foto == NULL){
-																echo base_url().'assets/img/default-foto.png'; 
-															}
-															else
-															{
-																echo base_url().'assets/profpic/'.$foto;
-															}
-															?>" style="max-width: 150px; max-height: 225px;" alt="...">
-												  </div>
-												  <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 200px;"></div>
-												  <div>
-												    <span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="fileFoto"></span>
-												    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-												  </div>
+											<div class="form-group">
+												<div class="fileinput fileinput-new" data-provides="fileinput">
+													<div class="fileinput-new thumbnail" style="width: 200px; height: 200px;">
+														<img src="
+														<?php 
+														if($foto == NULL){
+															echo base_url().'assets/img/default-foto.png'; 
+														}
+														else
+														{
+															echo base_url().'assets/profpic/'.$foto;
+														}
+														?>" style="max-width: 150px; max-height: 225px;" alt="...">
+													</div>
+													<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 200px;"></div>
+													<div>
+														<span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="fileFoto"></span>
+														<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+													</div>
 												</div>
-							                 </div>
-							          </div>
+											</div>
+										</div>
 
 
 										<br>
@@ -830,22 +829,22 @@ require_once('layout/sidebar.php');
 						</div>
 					</div>
 
-<script type="text/javascript"> 
-$(document).ready(function(){ 
-  $("#inputLembaga").change(function(){ 
-    var lembaga = $("#inputLembaga").val(); 
-    $.ajax({ 
-      type  : 'GET', 
-      url : "<?php echo base_url() ; ?>admin/updatedatasiswa/PSBMAUG117002", 
-      data  : "lembaga="+lembaga, 
-      cache : false, 
-      success : function(data){ 
-        $("#select_form_siswa").html(data); 
-      } 
-    }); 
-  }).change(); 
-}); 
-</script>
+					<script type="text/javascript"> 
+						$(document).ready(function(){ 
+							$("#inputLembaga").change(function(){ 
+								var lembaga = $("#inputLembaga").val(); 
+								$.ajax({ 
+									type  : 'GET', 
+									url : "<?php echo base_url() ; ?>admin/updatedatasiswa/PSBMAUG117002", 
+									data  : "lembaga="+lembaga, 
+									cache : false, 
+									success : function(data){ 
+										$("#select_form_siswa").html(data); 
+									} 
+								}); 
+							}).change(); 
+						}); 
+					</script>
 					<!-- Footer -->
 					<?php require_once('layout/footer.php'); ?>
 <!-- /footer -->

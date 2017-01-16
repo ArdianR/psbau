@@ -8,8 +8,9 @@
 		private $pekerjaan;
 		private $idkelompok;
 		private $kelompok;
-		//private $urut;
 		private $kapasitas;
+		private $tglmulai;
+		private $tglselesai;
 		private $idkondisi;
 		private $kondisi;
 		private $idlembaga;
@@ -65,10 +66,18 @@
 		{
 			$this->urut = $urut;
 		}    
-		public function setKapasitas($idkapasitas)
+		public function setKapasitas($kapasitas)
 		{
-			$this->idkapasitas = $idkapasitas;
-		}	
+			$this->kapasitas = $kapasitas;
+		}
+		public function setTanggalMulai($tglmulai)
+		{
+			$this->tglmulai = $tglmulai;
+		}
+		public function setTanggalSelesai($tglselesai)
+		{
+			$this->tglselesai = $tglselesai;
+		}
 		public function setIdKondisi($idkondisi)
 		{
 			$this->idkondisi = $idkondisi;
@@ -150,7 +159,7 @@
 			$this->aktif = $aktif;
 		}
 
-		
+		//AGAMA
 		public function getAgama()
 		{
 			//$this->db->cache_on();
@@ -162,6 +171,70 @@
 			$this->db->close();
 			return $query;
 		}
+		public function getAllAgama()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				SELECT * FROM psb_agama
+				ORDER BY urutan ASC
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function addAgama()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				INSERT INTO psb_agama(agama, urutan, ts)
+				VALUES(
+					'$this->agama',
+					'$this->urutan',
+					NOW()
+				)
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function updateAgama()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				UPDATE psb_agama
+				SET agama = '$this->agama',
+					ts = NOW()
+				WHERE idagama = '$this->idagama'
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function deleteAgama()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				DELETE FROM psb_agama
+				WHERE idagama = '$this->idagama'
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function getUrutanAgama()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				SELECT urutan FROM psb_agama
+				WHERE urutan = '$this->urutan'
+			");
+			$this->db->close();
+			return $query;
+		}
+
+
+		//Pekerjaan
 		public function getPekerjaan()
 		{
 			//$this->db->cache_on();
@@ -172,6 +245,57 @@
 			$this->db->close();
 			return $query;
 		}
+		public function getAllPekerjaan()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				SELECT * FROM psb_jenispekerjaan
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function addPekerjaan()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				INSERT INTO psb_jenispekerjaan(pekerjaan, ts)
+				VALUES(
+					'$this->pekerjaan',
+					NOW()
+				)
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function updatePekerjaan()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				UPDATE psb_pekerjaan
+				SET pekerjaan = '$this->pekerjaan',
+					ts = NOW()
+				WHERE idpekerjaan = '$this->idpekerjaan'
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function deletePekerjaan()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				DELETE FROM psb_pekerjaan
+				WHERE idpekerjaan = '$this->idpekerjaan'
+			");
+			$this->db->close();
+			return $query;
+		}
+
+		
+		//Kondisi Siswa
 		public function getKondisi()
 		{
 			//$this->db->cache_on();
@@ -183,6 +307,69 @@
 			$this->db->close();
 			return $query;
 		}
+		public function getAllKondisi()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				SELECT * FROM psb_kondisisiswa
+				ORDER BY urutan ASC
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function addKondisi()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				INSERT INTO psb_kondisisiswa(kondisi, urutan, ts)
+				VALUES(
+					'$this->kondisi',
+					'$this->urutan',
+					NOW()
+				)
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function updateKondisi()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				UPDATE psb_kondisisiswa
+				SET kondisi = '$this->kondisi',
+					ts = NOW()
+				WHERE idkondisi = '$this->idkondisi'
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function deleteKondisi()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				DELETE FROM psb_kondisisiswa
+				WHERE idkondisi = '$this->idkondisi'
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function getUrutanKondisi()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				SELECT urutan FROM psb_kondisisiswa
+				WHERE urutan = '$this->urutan'
+			");
+			$this->db->close();
+			return $query;
+		}
+
+
 		public function getPendidikan()
 		{
 			//$this->db->cache_on();
@@ -193,6 +380,56 @@
 			$this->db->close();
 			return $query;
 		}
+		public function getAllPendidikan()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				SELECT * FROM psb_tingkatpendidikan
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function addPendidikan()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				INSERT INTO psb_tingkatpendidikan(pendidikan, ts)
+				VALUES(
+					'$this->pendidikan',
+					NOW()
+				)
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function updatePendidikan()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				UPDATE psb_tingkatpendidikan
+				SET pendidikan = '$this->pendidikan',
+					ts = NOW()
+				WHERE idpendidikan = '$this->idpendidikan'
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function deletePendidikan()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				DELETE FROM psb_tingkatpendidikan
+				WHERE idpendidikan = '$this->idpendidikan'
+			");
+			$this->db->close();
+			return $query;
+		}
+
+		//PENGHASILAN
 		public function getPenghasilan()
 		{
 			//$this->db->cache_on();
@@ -204,6 +441,69 @@
 			$this->db->close();
 			return $query;
 		}
+		public function getAllPenghasilan()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				SELECT * FROM psb_penghasilan
+				ORDER BY urutan ASC
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function addPenghasilan()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				INSERT INTO psb_penghasilan(penghasilan, urutan, ts)
+				VALUES(
+					'$this->penghasilan',
+					'$this->urutan',
+					NOW()
+				)
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function updatePenghasilan()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				UPDATE psb_penghasilan
+				SET penghasilan = '$this->penghasilan',
+					ts = NOW()
+				WHERE idpenghasilan = '$this->idpenghasilan'
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function deletePenghasilan()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				DELETE FROM psb_penghasilan
+				WHERE idpenghasilan = '$this->idpenghasilan'
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function getUrutanPenghasilan()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				SELECT urutan FROM psb_penghasilan
+				WHERE urutan = '$this->urutan'
+			");
+			$this->db->close();
+			return $query;
+		}
+
+		//STATUS ORTU
 		public function getStatusOrtu()
 		{
 			//$this->db->cache_on();
@@ -215,6 +515,69 @@
 			$this->db->close();
 			return $query;
 		}
+		public function getAllStatusOrtu()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				SELECT * FROM psb_statusortu
+				ORDER BY urutan ASC
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function addStatusOrtu()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				INSERT INTO psb_statusortu(statusortu, urutan, ts)
+				VALUES(
+					'$this->statusortu',
+					'$this->urutan',
+					NOW()
+				)
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function updateStatusOrtu()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				UPDATE psb_statusortu
+				SET statusortu = '$this->statusortu',
+					ts = NOW()
+				WHERE idstatusortu = '$this->idstatusortu'
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function deleteStatusOrtu()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				DELETE FROM psb_statusortu
+				WHERE idstatusortu = '$this->idstatusortu'
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function getUrutanStatusOrtu()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				SELECT urutan FROM psb_statusortu
+				WHERE urutan = '$this->urutan'
+			");
+			$this->db->close();
+			return $query;
+		}
+		
+		//SUKU
 		public function getSuku()
 		{
 			//$this->db->cache_on();
@@ -222,6 +585,67 @@
 			("
 				SELECT suku FROM psb_suku
 				ORDER BY urutan ASC
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function getAllSuku()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				SELECT * FROM psb_suku
+				ORDER BY urutan ASC
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function addSuku()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				INSERT INTO psb_suku(suku, urutan, ts)
+				VALUES(
+					'$this->suku',
+					'$this->urutan',
+					NOW()
+				)
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function updateSuku()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				UPDATE psb_suku
+				SET suku = '$this->suku',
+					ts = NOW()
+				WHERE idsuku = '$this->idsuku'
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function deleteSuku()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				DELETE FROM psb_suku
+				WHERE idsuku = '$this->idsuku'
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function getUrutanSuku()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				SELECT urutan FROM psb_suku
+				WHERE urutan = '$this->urutan'
 			");
 			$this->db->close();
 			return $query;
@@ -236,6 +660,8 @@
 			("
 				SELECT kelompok FROM psb_kelompokcalonsiswa
 				WHERE idprosespenerimaan = '$idprosespenerimaan'
+					AND tglmulai <= NOW() AND NOW() <= tglselesai
+
 			");
 			$this->db->close();
 			return $query;
@@ -246,6 +672,52 @@
 			("
 				SELECT * FROM psb_kelompokcalonsiswa
 				WHERE idprosespenerimaan = '$idprosespenerimaan'
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function addKelompok()
+		{
+			$query = $this->db->query
+			("
+				INSERT INTO psb_kelompokcalonsiswa(kelompok, idprosespenerimaan, kapasitas, tglmulai, tglselesai, keterangan, ts)
+				VALUES(
+					'$this->kelompok',
+					'$this->idprosespenerimaan',
+					'$this->kapasitas',
+					'$this->tglmulai',
+					'$this->tglselesai',
+					'$this->keterangan',
+					NOW()
+				)
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function updateKelompok()
+		{
+			$query = $this->db->query
+			("
+				UPDATE psb_kelompokcalonsiswa
+				SET
+					kelompok = '$this->kelompok',
+					idprosespenerimaan = '$this->idprosespenerimaan',
+					kapasitas = '$this->kapasitas',
+					tglmulai = '$this->tglmulai',
+					tglselesai = '$this->tglselesai',
+					keterangan = '$this->keterangan',
+					ts = NOW()
+				WHERE idkelompok = '$this->idkelompok'
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function deleteKelompok()
+		{
+			$query = $this->db->query
+			("
+				DELETE FROM psb_kelompokcalonsiswa
+					WHERE idkelompok = '$this->idkelompok'
 			");
 			$this->db->close();
 			return $query;
@@ -313,6 +785,17 @@
 						keterangan = '$this->keterangan',
 						ts = NOW()
 					WHERE idlembaga = '$this->idlembaga'
+			");
+			$this->db->close();
+			return $query;
+		}
+		public function getUrutanLembaga()
+		{
+			//$this->db->cache_on();
+			$query = $this->db->query
+			("
+				SELECT urutan FROM psb_lembaga
+				WHERE urutan = '$this->urutan'
 			");
 			$this->db->close();
 			return $query;
